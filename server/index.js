@@ -54,12 +54,12 @@ app.post('/process_payment', async (req, res) => {
 
 app.post('/api/chat', async (req, res) => {
     try {
-        const { messages, message } = req.body;
+        const { history, message } = req.body;
 
         // Construir el historial en formato texto plano
         let conversationText = "";
-        if (messages && messages.length > 0) {
-            conversationText = messages.map(m => `${m.sender === 'user' ? 'Cliente' : 'Patrón-Bot'}: ${m.text}`).join('\n');
+        if (history && history.length > 0) {
+            conversationText = history.map(m => `${m.role === 'user' ? 'Cliente' : 'Patrón-Bot'}: ${m.text}`).join('\n');
         }
 
         const prompt = `
