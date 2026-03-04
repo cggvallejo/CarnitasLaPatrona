@@ -5,6 +5,7 @@ import ProductGrid from './components/ProductGrid';
 import CartSidebar from './components/CartSidebar';
 import { CartProvider } from './context/CartContext';
 import Chatbot from './components/Chatbot';
+import PorkbotPeeker from './components/PorkbotPeeker';
 import { Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -46,6 +47,7 @@ function App() {
         </motion.footer>
 
         <CartSidebar />
+        <PorkbotPeeker />
         <Chatbot />
       </div>
     </CartProvider>
