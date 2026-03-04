@@ -67,7 +67,7 @@ app.post('/api/chat', async (req, res) => {
         res.json({ text });
     } catch (error) {
         console.error("Error en el chat de Gemini:", error);
-        res.status(500).json({ error: "Error al procesar el mensaje del chatbot" });
+        res.status(500).json({ error: "Error al procesar el mensaje del chatbot", details: error.message || error.toString() });
     }
 });
 

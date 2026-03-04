@@ -47,12 +47,27 @@ const Chatbot = () => {
         try {
             // Preparar historial para Gemini (debe empezar con 'user')
             // Omitimos el primer mensaje de bienvenida del bot para cumplir la regla de Gemini
-            const history = messages
-                .filter(m => m.sender === 'user')
-                .map(m => ({
-                    role: 'user',
-                    parts: [{ text: m.text }]
-                }));
+            // Construir el historial asegurando que los roles alternen (Gemini requiere user -> model -> user)
+            let formattedHistory = [];
+            // Omitimos el mensaje inicial del bot
+            const pastMessages = messages.slice(1);
+
+            for (const m of pastMessages) {
+                const role = m.sender === 'user' ? 'user' : 'model';
+                if (formattedHistory.length > 0 && formattedHistory[formattedHistory.length - 1].role === role) {
+                    // Si el rol es el mismo que el anterior, concatenamos el texto
+                    formattedHistory[formattedHistory.length - 1].parts[0].text += `\n${m.text}`;
+                } else {
+                    formattedHistory.push({ role, parts: [{ text: m.text }] });
+                }
+            }
+
+            // El historial DEBE empezar con 'user' si no está vacío
+            if (formattedHistory.length > 0 && formattedHistory[0].role !== 'user') {
+                formattedHistory.shift();
+            }
+
+            const history = formattedHistory;
 
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
             console.log('Using API URL:', apiUrl);
@@ -63,6 +78,12 @@ const Chatbot = () => {
             });
 
             const data = await response.json();
+
+            if (!response.ok) {
+                console.error("Detalles del error del servidor:", data.details);
+                throw new Error(data.details || data.error || 'Error desconocido de la API');
+            }
+
             let botText = data.text;
 
             // Detectar si hay un resumen de pedido en el mensaje
