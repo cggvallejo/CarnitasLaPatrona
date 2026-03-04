@@ -13,16 +13,20 @@ const CartSidebar = () => {
         cartTotal
     } = useCart();
 
-    const [checkoutStep, setCheckoutStep] = useState('cart'); // 'cart', 'selection', 'mercadopago'
+    const [checkoutStep, setCheckoutStep] = useState('cart'); // 'cart', 'delivery', 'selection', 'mercadopago'
     const [paymentMethod, setPaymentMethod] = useState(null);
+    const [deliveryMode, setDeliveryMode] = useState('local'); // 'local' or 'delivery'
+    const [deliveryAddress, setDeliveryAddress] = useState('');
 
     const handleWhatsAppCheckout = (methodOverride = null) => {
         const method = methodOverride || paymentMethod || 'WhatsApp';
         const methodText = method === 'cash' ? 'Pago en Efectivo' : method === 'terminal' ? 'Pago con Terminal' : 'Pedido de WhatsApp';
 
-        const phone = "521234567890"; // Reemplazar con el número real
+        const locText = deliveryMode === 'delivery' ? `Envío a: ${deliveryAddress}` : 'Para recoger en sucursal';
+
+        const phone = "523312345678"; // Reemplazo a número simulado
         const itemsList = cart.map(item => `${item.quantity}x ${item.name}`).join(', ');
-        const text = encodeURIComponent(`¡Hola! Me gustaría hacer un pedido:\n\n${itemsList}\n\nTotal: $${cartTotal.toFixed(2)}\nMetodo de Pago: ${methodText}\n\nMuchas gracias.`);
+        const text = encodeURIComponent(`¡Hola Patrón!\nMe gustaría hacer un pedido:\n\n${itemsList}\n\nTotal: $${cartTotal.toFixed(2)}\nMetodo de Pago: ${methodText}\nUbicación: ${locText}\n\nMuchas gracias.`);
         window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
     };
 
@@ -31,6 +35,49 @@ const CartSidebar = () => {
     const renderCheckoutContent = () => {
         if (checkoutStep === 'mercadopago') {
             return <MercadoPagoBtn amount={cartTotal} />;
+        }
+
+        if (checkoutStep === 'delivery') {
+            return (
+                <div style={styles.selectionView}>
+                    <h4 style={styles.sectionTitle}>¿Dónde te entregamos?</h4>
+                    <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
+                        <button
+                            style={{ ...styles.deliveryToggleBtn, backgroundColor: deliveryMode === 'local' ? 'var(--primary)' : '#f5f5f5', color: deliveryMode === 'local' ? 'white' : '#333' }}
+                            onClick={() => setDeliveryMode('local')}
+                        >
+                            Pasar a recoger
+                        </button>
+                        <button
+                            style={{ ...styles.deliveryToggleBtn, backgroundColor: deliveryMode === 'delivery' ? 'var(--primary)' : '#f5f5f5', color: deliveryMode === 'delivery' ? 'white' : '#333' }}
+                            onClick={() => setDeliveryMode('delivery')}
+                        >
+                            A domicilio
+                        </button>
+                    </div>
+
+                    {deliveryMode === 'delivery' && (
+                        <div style={{ marginBottom: '1.5rem', animation: 'fadeIn 0.3s' }}>
+                            <p style={{ marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: 'bold' }}>Dirección de entrega:</p>
+                            <input
+                                type="text"
+                                placeholder="Ej: Calle Juárez 123, Col. Centro"
+                                value={deliveryAddress}
+                                onChange={(e) => setDeliveryAddress(e.target.value)}
+                                style={styles.deliveryInput}
+                            />
+                        </div>
+                    )}
+
+                    <button
+                        style={{ ...styles.cardBtn, opacity: (deliveryMode === 'delivery' && !deliveryAddress.trim()) ? 0.5 : 1 }}
+                        disabled={deliveryMode === 'delivery' && !deliveryAddress.trim()}
+                        onClick={() => setCheckoutStep('selection')}
+                    >
+                        Continuar al Pago
+                    </button>
+                </div>
+            );
         }
 
         if (checkoutStep === 'selection') {
@@ -115,7 +162,8 @@ const CartSidebar = () => {
                 <div style={styles.header}>
                     <h3>
                         {checkoutStep === 'mercadopago' ? 'Pago con Tarjeta' :
-                            checkoutStep === 'selection' ? 'Seleccionar Pago' : 'Tu Carrito'}
+                            checkoutStep === 'selection' ? 'Seleccionar Pago' :
+                                checkoutStep === 'delivery' ? 'Detalles de Entrega' : 'Tu Carrito'}
                     </h3>
                     <button onClick={() => {
                         setIsCartOpen(false);
@@ -137,7 +185,7 @@ const CartSidebar = () => {
                         <div style={styles.actions}>
                             <button
                                 style={styles.cardBtn}
-                                onClick={() => setCheckoutStep('selection')}
+                                onClick={() => setCheckoutStep('delivery')}
                             >
                                 Finalizar Pedido
                             </button>
@@ -148,7 +196,11 @@ const CartSidebar = () => {
                 {checkoutStep !== 'cart' && (
                     <div style={styles.backContainer}>
                         <button
-                            onClick={() => setCheckoutStep(checkoutStep === 'mercadopago' ? 'selection' : 'cart')}
+                            onClick={() => {
+                                if (checkoutStep === 'mercadopago') setCheckoutStep('selection');
+                                else if (checkoutStep === 'selection') setCheckoutStep('delivery');
+                                else setCheckoutStep('cart');
+                            }}
                             style={styles.backBtn}
                         >
                             ← Volver
@@ -331,6 +383,12 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         gap: '0.2rem',
+    },
+    deliveryToggleBtn: {
+        flex: 1, padding: '0.8rem', borderRadius: '10px', border: 'none', fontWeight: 'bold', cursor: 'pointer', transition: 'all 0.2s', fontFamily: 'Outfit, sans-serif'
+    },
+    deliveryInput: {
+        width: '100%', padding: '0.8rem', borderRadius: '10px', border: '1px solid #ddd', fontFamily: 'Outfit, sans-serif', fontSize: '1rem', outline: 'none'
     }
 };
 

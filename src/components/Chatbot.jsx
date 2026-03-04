@@ -12,6 +12,7 @@ const Chatbot = () => {
     const [messages, setMessages] = useState([
         { id: 1, role: 'bot', text: "¡Oink, oink! 🐷 Soy Porkbot. ¿Qué se te antoja de nuestro menú hoy?" }
     ]);
+    const [addressInput, setAddressInput] = useState('');
     const scrollRef = useRef(null);
 
     // Estado del bot
@@ -97,9 +98,14 @@ const Chatbot = () => {
                 }
             }
             else if (orderState === 'LOCATION') {
-                setCurrentOrder({ ...currentOrder, location: replyText });
-                setOrderState('PAYMENT');
-                addMessage('bot', '¡Perfecto! ¿Cómo te gustaría pagar?');
+                if (replyText === 'Para Llevar') {
+                    setOrderState('ADDRESS_INPUT');
+                    addMessage('bot', '¡Oink! Vamos hasta tu casa 🚗🐷. Por favor, escribe tu calle, número y colonia:');
+                } else {
+                    setCurrentOrder({ ...currentOrder, location: replyText });
+                    setOrderState('PAYMENT');
+                    addMessage('bot', '¡Perfecto! ¿Cómo te gustaría pagar?');
+                }
             }
             else if (orderState === 'PAYMENT') {
                 if (replyText === 'Tarjeta / Mercado Pago') {
@@ -151,6 +157,18 @@ const Chatbot = () => {
                     setCurrentOrder({ items: [], location: '', payment: '' });
                 }
             }
+        }, 600);
+    };
+
+    const handleAddressSubmit = () => {
+        if (!addressInput.trim()) return;
+        addMessage('user', addressInput);
+
+        setTimeout(() => {
+            setCurrentOrder(prev => ({ ...prev, location: `Domicilio: ${addressInput}` }));
+            setOrderState('PAYMENT');
+            addMessage('bot', '¡Anotado! 🐷 ¿Cómo te gustaría pagar?');
+            setAddressInput('');
         }, 600);
     };
 
@@ -226,19 +244,42 @@ const Chatbot = () => {
                             )}
                         </div>
 
-                        <div style={styles.quickRepliesContainer}>
-                            {getQuickReplies().map((reply, idx) => (
+                        {orderState === 'ADDRESS_INPUT' ? (
+                            <div style={styles.addressInputContainer}>
+                                <input
+                                    type="text"
+                                    placeholder="Ej: Juárez 123, Col. Centro"
+                                    value={addressInput}
+                                    onChange={(e) => setAddressInput(e.target.value)}
+                                    style={styles.addressInput}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') handleAddressSubmit();
+                                    }}
+                                />
                                 <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    key={idx}
-                                    style={styles.quickReplyBtn}
-                                    onClick={() => handleReply(reply)}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={handleAddressSubmit}
+                                    style={styles.addressSubmitBtn}
                                 >
-                                    {reply}
+                                    Enviar
                                 </motion.button>
-                            ))}
-                        </div>
+                            </div>
+                        ) : getQuickReplies().length > 0 && (
+                            <div style={styles.quickRepliesContainer}>
+                                {getQuickReplies().map((reply, idx) => (
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        key={idx}
+                                        style={styles.quickReplyBtn}
+                                        onClick={() => handleReply(reply)}
+                                    >
+                                        {reply}
+                                    </motion.button>
+                                ))}
+                            </div>
+                        )}
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -259,7 +300,10 @@ const styles = {
     messageRow: { display: 'flex', width: '100%' },
     messageBubble: { maxWidth: '85%', padding: '0.8rem 1rem', fontSize: '0.95rem', lineHeight: '1.4', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' },
     quickRepliesContainer: { display: 'flex', flexWrap: 'wrap', gap: '0.5rem', padding: '1rem', backgroundColor: 'rgba(250, 250, 250, 0.4)', borderTop: '1px solid rgba(255, 255, 255, 0.5)', justifyContent: 'center' },
-    quickReplyBtn: { backgroundColor: 'rgba(255, 255, 255, 0.8)', color: 'var(--primary)', border: '1px solid rgba(230, 81, 0, 0.3)', borderRadius: '15px', padding: '0.6rem 1rem', fontSize: '0.9rem', cursor: 'pointer', transition: 'all 0.2s', fontWeight: 'bold', width: '100%' }
+    quickReplyBtn: { backgroundColor: 'rgba(255, 255, 255, 0.8)', color: 'var(--primary)', border: '1px solid rgba(230, 81, 0, 0.3)', borderRadius: '15px', padding: '0.6rem 1rem', fontSize: '0.9rem', cursor: 'pointer', transition: 'all 0.2s', fontWeight: 'bold', width: '100%' },
+    addressInputContainer: { display: 'flex', gap: '0.5rem', padding: '1rem', backgroundColor: 'rgba(250, 250, 250, 0.4)', borderTop: '1px solid rgba(255, 255, 255, 0.5)' },
+    addressInput: { flex: 1, padding: '0.8rem', borderRadius: '15px', border: '1px solid rgba(230,81,0,0.3)', outline: 'none', backgroundColor: 'rgba(255,255,255,0.8)', fontFamily: 'Outfit, sans-serif' },
+    addressSubmitBtn: { backgroundColor: 'var(--primary)', color: 'white', border: 'none', borderRadius: '15px', padding: '0 1.2rem', fontWeight: 'bold', cursor: 'pointer', fontFamily: 'Outfit, sans-serif' }
 };
 
 export default Chatbot;
