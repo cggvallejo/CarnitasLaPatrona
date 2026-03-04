@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import MercadoPagoBtn from './MercadoPagoBtn';
+import { CreditCard, Banknote, TabletSmartphone, Trash2, ShoppingCart } from 'lucide-react';
 
 const CartSidebar = () => {
     const {
@@ -40,7 +41,7 @@ const CartSidebar = () => {
                         style={styles.methodOption}
                         onClick={() => setCheckoutStep('mercadopago')}
                     >
-                        <span style={styles.methodIcon}>💳</span>
+                        <span style={styles.methodIcon}><CreditCard size={32} color="var(--primary)" /></span>
                         <div style={styles.methodDetails}>
                             <strong>Tarjeta de Crédito/Débito</strong>
                             <small>Pago seguro con Mercado Pago</small>
@@ -54,7 +55,7 @@ const CartSidebar = () => {
                             handleWhatsAppCheckout('cash');
                         }}
                     >
-                        <span style={styles.methodIcon}>💵</span>
+                        <span style={styles.methodIcon}><Banknote size={32} color="var(--primary)" /></span>
                         <div style={styles.methodDetails}>
                             <strong>Pago en Efectivo</strong>
                             <small>Pagas al recibir tu pedido</small>
@@ -68,7 +69,7 @@ const CartSidebar = () => {
                             handleWhatsAppCheckout('terminal');
                         }}
                     >
-                        <span style={styles.methodIcon}>📟</span>
+                        <span style={styles.methodIcon}><TabletSmartphone size={32} color="var(--primary)" /></span>
                         <div style={styles.methodDetails}>
                             <strong>Solicitar Terminal</strong>
                             <small>Llevamos la terminal a tu domicilio</small>
@@ -80,7 +81,10 @@ const CartSidebar = () => {
 
         return (
             cart.length === 0 ? (
-                <p style={styles.emptyMsg}>Tu carrito está vacío 🌮</p>
+                <div style={styles.emptyMsg}>
+                    <ShoppingCart size={48} style={{ opacity: 0.2, marginBottom: '1rem' }} />
+                    <p>Tu carrito está vacío</p>
+                </div>
             ) : (
                 cart.map((item) => (
                     <div key={item.id} style={styles.item}>
@@ -94,7 +98,7 @@ const CartSidebar = () => {
                                 <button onClick={() => updateQuantity(item.id, 1)} style={styles.qtyBtn}>+</button>
                             </div>
                         </div>
-                        <button onClick={() => removeFromCart(item.id)} style={styles.removeBtn}>🗑️</button>
+                        <button onClick={() => removeFromCart(item.id)} style={styles.removeBtn}><Trash2 size={18} color="#e74c3c" /></button>
                     </div>
                 ))
             )
@@ -135,7 +139,7 @@ const CartSidebar = () => {
                                 style={styles.cardBtn}
                                 onClick={() => setCheckoutStep('selection')}
                             >
-                                Finalizar Pedido 🛒
+                                Finalizar Pedido
                             </button>
                         </div>
                     </div>

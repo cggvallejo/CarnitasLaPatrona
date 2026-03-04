@@ -1,5 +1,7 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
+import { ShoppingCart } from 'lucide-react';
+import { motion } from 'framer-motion';
 import logo from '../assets/images/logo.png';
 
 const Header = () => {
@@ -15,13 +17,23 @@ const Header = () => {
 
                 <nav style={styles.nav}>
                     <a href="#menu" style={styles.navLink}>Menú</a>
-                    <button
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         onClick={() => setIsCartOpen(true)}
                         style={styles.cartBtn}
                     >
-                        <span style={styles.cartIcon}>🛒</span>
-                        {cartCount > 0 && <span style={styles.cartBadge}>{cartCount}</span>}
-                    </button>
+                        <ShoppingCart size={20} strokeWidth={2.5} />
+                        {cartCount > 0 && (
+                            <motion.span
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                style={styles.cartBadge}
+                            >
+                                {cartCount}
+                            </motion.span>
+                        )}
+                    </motion.button>
                 </nav>
             </div>
         </header>

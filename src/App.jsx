@@ -5,6 +5,7 @@ import ProductGrid from './components/ProductGrid';
 import CartSidebar from './components/CartSidebar';
 import { CartProvider } from './context/CartContext';
 import Chatbot from './components/Chatbot';
+import { Heart } from 'lucide-react';
 
 function App() {
   return (
@@ -18,7 +19,9 @@ function App() {
         <footer style={styles.footer}>
           <div className="container" style={styles.footerContent}>
             <p>&copy; 2026 Carnitas "El Patrón" - Guadalajara, Jal.</p>
-            <p>Hecho con ❤️ para los amantes del buen taco.</p>
+            <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+              Hecho con <Heart size={16} fill="var(--primary)" color="var(--primary)" /> para los amantes del buen taco.
+            </p>
           </div>
         </footer>
         <CartSidebar />

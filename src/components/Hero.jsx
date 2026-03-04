@@ -1,22 +1,41 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import heroImage from '../assets/images/hero_tacos.png';
 
 const Hero = () => {
     return (
         <section style={styles.hero}>
             <div className="container" style={styles.container}>
-                <div style={styles.content}>
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    style={styles.content}
+                >
                     <h2 style={styles.subtitle}>Sabor Tradicional</h2>
                     <h1 style={styles.title}>Las Mejores Carnitas de la Región</h1>
                     <p style={styles.description}>
                         Tradición familiar en cada bocado. Nuestra maciza y cuerito son cocinados lentamente en cazos de cobre para lograr ese dorado perfecto y jugosidad incomparable.
                     </p>
-                    <a href="#menu" style={styles.cta}>Ordenar Ahora</a>
-                </div>
-                <div style={styles.imageContainer}>
-                    <img src={heroImage} alt="Delicious Carnitas" style={styles.image} className="animate-fade" />
+                    <motion.a
+                        href="#menu"
+                        style={styles.cta}
+                        whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(211, 84, 0, 0.4)" }}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        Ordenar Ahora <ArrowRight size={20} style={{ marginLeft: '8px' }} />
+                    </motion.a>
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                    style={styles.imageContainer}
+                >
+                    <img src={heroImage} alt="Delicious Carnitas" style={styles.image} />
                     <div style={styles.blob}></div>
-                </div>
+                </motion.div>
             </div>
         </section>
     );
@@ -62,12 +81,14 @@ const styles = {
         maxWidth: '500px',
     },
     cta: {
-        display: 'inline-block',
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: 'var(--primary)',
         color: 'white',
-        padding: '1rem 2.5rem',
+        padding: '1.2rem 2.5rem',
         borderRadius: '50px',
-        fontWeight: 600,
+        fontWeight: 700,
         fontSize: '1.1rem',
         boxShadow: '0 4px 15px rgba(211, 84, 0, 0.3)',
         transition: 'var(--transition)',

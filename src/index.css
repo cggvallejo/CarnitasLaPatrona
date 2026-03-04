@@ -1,18 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:wght@700;900&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&f[]=clash-display@200,400,700,500,600,300&display=swap');
 
 :root {
   --primary: #D35400;
   --primary-light: #E67E22;
   --secondary: #A04000;
   --accent: #27AE60;
-  --bg-color: #FFFBF0;
+  --bg-color: #FAFAFA;
   --card-bg: #FFFFFF;
-  --text-main: #2C3E50;
-  --text-muted: #7F8C8D;
+  --text-main: #1C1C1C;
+  --text-muted: #666666;
   --white: #FFFFFF;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  --glass: rgba(255, 255, 255, 0.8);
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+  --glass: rgba(255, 255, 255, 0.75);
+  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -22,18 +22,22 @@
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-main);
   line-height: 1.6;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,
 h2,
-h3 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
+h3,
+h4,
+h5 {
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 a {
