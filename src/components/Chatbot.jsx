@@ -274,24 +274,34 @@ const Chatbot = () => {
 
                         {orderState === 'ADDRESS_INPUT' ? (
                             <div style={styles.addressInputContainer}>
-                                <input
-                                    type="text"
-                                    placeholder="Ej: Juárez 123, Col. Centro"
-                                    value={addressInput}
-                                    onChange={(e) => setAddressInput(e.target.value)}
-                                    style={styles.addressInput}
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter') handleAddressSubmit();
-                                    }}
-                                />
                                 <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={handleAddressSubmit}
-                                    style={styles.addressSubmitBtn}
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    onClick={handleLocationRequest}
+                                    style={styles.locationBtn}
                                 >
-                                    Enviar
+                                    <MapPin size={16} /> Usar mi ubicación GPS actual
                                 </motion.button>
+                                <div style={{ display: 'flex', gap: '0.5rem', width: '100%' }}>
+                                    <input
+                                        type="text"
+                                        placeholder="O escribe: Juárez 123..."
+                                        value={addressInput}
+                                        onChange={(e) => setAddressInput(e.target.value)}
+                                        style={styles.addressInput}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') handleAddressSubmit();
+                                        }}
+                                    />
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={handleAddressSubmit}
+                                        style={styles.addressSubmitBtn}
+                                    >
+                                        Enviar
+                                    </motion.button>
+                                </div>
                             </div>
                         ) : getQuickReplies().length > 0 && (
                             <div style={styles.quickRepliesContainer}>
