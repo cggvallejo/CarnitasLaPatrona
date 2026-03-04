@@ -40,6 +40,9 @@ const Chatbot = () => {
         if (orderState === 'PAYMENT') {
             return ["Efectivo", "Tarjeta / Mercado Pago"];
         }
+        if (orderState === 'PAYMENT_CARD_OPTIONS') {
+            return ["Pagar aquí (Seguro)", "Terminal a Domicilio"];
+        }
         if (orderState === 'CONFIRM') {
             return ["Enviar a WhatsApp", "Cancelar Pedido"];
         }
@@ -80,7 +83,8 @@ const Chatbot = () => {
                         addToCart(prodDb);
                         const newItems = [...currentOrder.items, { name: prodDb.name, price: prodDb.price }];
                         setCurrentOrder({ ...currentOrder, items: newItems });
-                        addMessage('bot', `¡Agregado ${prodDb.name}! Llevas ${newItems.length} producto(s). ¿Algo más?`);
+                        const newTotal = newItems.reduce((sum, item) => sum + item.price, 0);
+                        addMessage('bot', `¡Agregado ${prodDb.name}! Subtotal: $${newTotal.toFixed(2)}. ¿Te apetece algo más?`);
                     } else {
                         addMessage('bot', '¡Anotado! 👍 ¿Te agrego algo más o ya terminamos el pedido?');
                         const newItems = [...currentOrder.items, { name: replyText, price: 0 }];
@@ -94,15 +98,26 @@ const Chatbot = () => {
                 addMessage('bot', '¡Perfecto! ¿Cómo te gustaría pagar?');
             }
             else if (orderState === 'PAYMENT') {
+                if (replyText === 'Tarjeta / Mercado Pago') {
+                    setOrderState('PAYMENT_CARD_OPTIONS');
+                    addMessage('bot', '¡Entendido! ¿Prefieres pagar ahora mismo de forma segura o enviamos una terminal a tu domicilio?');
+                } else {
+                    setCurrentOrder({ ...currentOrder, payment: replyText });
+                    setOrderState('CONFIRM');
+                    const itemsList = currentOrder.items.map(i => `- ${i.name}`).join('\n');
+                    addMessage('bot', `Aquí está tu resumen oink-creíble:\n\n${itemsList}\nTotal: $${getOrderTotal().toFixed(2)}\nEntrega: ${currentOrder.location}\nPago: ${replyText}\n\n¿Confirmamos el pedido?`);
+                }
+            }
+            else if (orderState === 'PAYMENT_CARD_OPTIONS') {
                 setCurrentOrder({ ...currentOrder, payment: replyText });
 
-                if (replyText === 'Tarjeta / Mercado Pago') {
+                if (replyText === 'Pagar aquí (Seguro)') {
                     setOrderState('MP_CHECKOUT');
                     addMessage('bot', `Total a pagar: $${getOrderTotal().toFixed(2)}. Abriendo la bóveda de cerdito segura... 🐷💳`);
                 } else {
                     setOrderState('CONFIRM');
                     const itemsList = currentOrder.items.map(i => `- ${i.name}`).join('\n');
-                    addMessage('bot', `Aquí está tu resumen oink-creíble:\n\n${itemsList}\nTotal: $${getOrderTotal().toFixed(2)}\nEntrega: ${currentOrder.location}\nPago: ${replyText}\n\n¿Confirmamos el pedido?`);
+                    addMessage('bot', `Aquí está tu resumen oink-creíble:\n\n${itemsList}\nTotal: $${getOrderTotal().toFixed(2)}\nEntrega: ${currentOrder.location}\nPago: Terminal a Domicilio\n\n¿Confirmamos el pedido?`);
                 }
             }
             else if (orderState === 'MP_CHECKOUT') {
