@@ -40,12 +40,15 @@ const Chatbot = () => {
         try {
             // Preparar historial para Gemini (debe empezar con 'user')
             // Omitimos el primer mensaje de bienvenida del bot para cumplir la regla de Gemini
-            const history = messages.slice(1).map(m => ({
-                role: m.sender === 'user' ? 'user' : 'model',
-                parts: [{ text: m.text }]
-            }));
+            const history = messages
+                .filter(m => m.sender === 'user')
+                .map(m => ({
+                    role: 'user',
+                    parts: [{ text: m.text }]
+                }));
 
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+            console.log('Using API URL:', apiUrl);
             const response = await fetch(`${apiUrl}/api/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
