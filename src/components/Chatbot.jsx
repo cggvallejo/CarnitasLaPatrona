@@ -38,8 +38,9 @@ const Chatbot = () => {
 
     const processBotResponse = async (inputText) => {
         try {
-            // Preparar historial para Gemini (formato simple)
-            const history = messages.map(m => ({
+            // Preparar historial para Gemini (debe empezar con 'user')
+            // Omitimos el primer mensaje de bienvenida del bot para cumplir la regla de Gemini
+            const history = messages.slice(1).map(m => ({
                 role: m.sender === 'user' ? 'user' : 'model',
                 parts: [{ text: m.text }]
             }));
