@@ -12,6 +12,13 @@ const Chatbot = () => {
     const [currentOrder, setCurrentOrder] = useState({ products: [], location: '', paymentMethod: '' });
     const scrollRef = useRef(null);
 
+    const quickReplies = [
+        "🌮 Ver Tacos",
+        "🥩 Pedir por Kilo",
+        "🥤 Ver Bebidas",
+        "✅ Terminar Pedido"
+    ];
+
     useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -160,6 +167,25 @@ const Chatbot = () => {
                         ))}
                     </div>
 
+                    {/* Quick Replies */}
+                    <div style={styles.quickRepliesContainer}>
+                        {quickReplies.map((reply, idx) => (
+                            <button
+                                key={idx}
+                                style={styles.quickReplyBtn}
+                                onClick={() => {
+                                    setInputValue(reply);
+                                    // Let the state update first, then send
+                                    setTimeout(() => {
+                                        document.getElementById('chatbot-send-btn').click();
+                                    }, 50);
+                                }}
+                            >
+                                {reply}
+                            </button>
+                        ))}
+                    </div>
+
                     <div style={styles.inputArea}>
                         <input
                             type="text"
@@ -169,7 +195,7 @@ const Chatbot = () => {
                             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                             style={styles.input}
                         />
-                        <button onClick={handleSend} style={styles.sendBtn}>➤</button>
+                        <button id="chatbot-send-btn" onClick={handleSend} style={styles.sendBtn}>➤</button>
                     </div>
                 </div>
             )}
@@ -284,6 +310,27 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: '1rem',
+        border: 'none',
+        cursor: 'pointer'
+    },
+    quickRepliesContainer: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '0.5rem',
+        padding: '0.5rem 1rem',
+        backgroundColor: '#fff',
+        borderTop: '1px solid #eee'
+    },
+    quickReplyBtn: {
+        backgroundColor: '#fdeee8',
+        color: 'var(--primary)',
+        border: '1px solid var(--primary)',
+        borderRadius: '15px',
+        padding: '0.4rem 0.8rem',
+        fontSize: '0.8rem',
+        cursor: 'pointer',
+        transition: 'all 0.2s',
+        whiteSpace: 'nowrap'
     }
 };
 
