@@ -175,12 +175,15 @@ const styles = {
         bottom: 0,
         width: '100%',
         maxWidth: '400px',
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(255, 255, 255, 0.75)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
         zIndex: 999,
         boxShadow: '-10px 0 30px rgba(0,0,0,0.1)',
         display: 'flex',
         flexDirection: 'column',
         animation: 'slideInRight 0.4s ease forwards',
+        borderLeft: '1px solid rgba(255, 255, 255, 0.5)',
     },
     header: {
         padding: '2rem',
@@ -251,8 +254,8 @@ const styles = {
     },
     checkout: {
         padding: '2rem',
-        borderTop: '1px solid #eee',
-        backgroundColor: '#fafafa',
+        borderTop: '1px solid rgba(0,0,0,0.05)',
+        backgroundColor: 'rgba(250, 250, 250, 0.5)',
     },
     totalRow: {
         display: 'flex',

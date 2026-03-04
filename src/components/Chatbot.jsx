@@ -227,17 +227,17 @@ const Chatbot = () => {
 const styles = {
     chatWrapper: { position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 1000, fontFamily: 'Outfit, sans-serif' },
     launcher: { width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'var(--primary)', color: 'white', fontSize: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 5px 20px rgba(0,0,0,0.2)', border: 'none', cursor: 'pointer' },
-    window: { position: 'absolute', bottom: '80px', right: '0', width: '340px', height: '500px', backgroundColor: 'white', borderRadius: '20px', boxShadow: '0 10px 40px rgba(0,0,0,0.15)', display: 'flex', flexDirection: 'column', overflow: 'hidden' },
-    header: { padding: '1rem', backgroundColor: 'var(--primary)', color: 'white' },
+    window: { position: 'absolute', bottom: '80px', right: '0', width: '340px', height: '500px', backgroundColor: 'rgba(255, 255, 255, 0.65)', backdropFilter: 'blur(15px)', WebkitBackdropFilter: 'blur(15px)', border: '1px solid rgba(255, 255, 255, 0.4)', borderRadius: '20px', boxShadow: '0 10px 40px rgba(0,0,0,0.15)', display: 'flex', flexDirection: 'column', overflow: 'hidden' },
+    header: { padding: '1rem', backgroundColor: 'rgba(211, 84, 0, 0.9)', color: 'white', borderBottom: '1px solid rgba(255,255,255,0.2)' },
     botInfo: { display: 'flex', alignItems: 'center', gap: '0.8rem' },
     botAvatarImg: { width: '45px', height: '45px', borderRadius: '50%', border: '2px solid white', objectFit: 'cover', backgroundColor: '#ffd1dc' },
     botName: { margin: 0, fontSize: '1.2rem', fontWeight: 'bold' },
     botStatus: { opacity: 0.9, fontSize: '0.8rem' },
-    messages: { flex: 1, padding: '1rem', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.8rem', backgroundColor: '#fdfdfd' },
+    messages: { flex: 1, padding: '1rem', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.8rem', backgroundColor: 'transparent' },
     messageRow: { display: 'flex', width: '100%' },
     messageBubble: { maxWidth: '85%', padding: '0.8rem 1rem', fontSize: '0.95rem', lineHeight: '1.4', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' },
-    quickRepliesContainer: { display: 'flex', flexWrap: 'wrap', gap: '0.5rem', padding: '1rem', backgroundColor: '#fafafa', borderTop: '1px solid #eee', justifyContent: 'center' },
-    quickReplyBtn: { backgroundColor: '#fdeee8', color: 'var(--primary)', border: '1px solid rgba(230, 81, 0, 0.3)', borderRadius: '15px', padding: '0.6rem 1rem', fontSize: '0.9rem', cursor: 'pointer', transition: 'all 0.2s', fontWeight: 'bold', width: '100%' }
+    quickRepliesContainer: { display: 'flex', flexWrap: 'wrap', gap: '0.5rem', padding: '1rem', backgroundColor: 'rgba(250, 250, 250, 0.4)', borderTop: '1px solid rgba(255, 255, 255, 0.5)', justifyContent: 'center' },
+    quickReplyBtn: { backgroundColor: 'rgba(255, 255, 255, 0.8)', color: 'var(--primary)', border: '1px solid rgba(230, 81, 0, 0.3)', borderRadius: '15px', padding: '0.6rem 1rem', fontSize: '0.9rem', cursor: 'pointer', transition: 'all 0.2s', fontWeight: 'bold', width: '100%' }
 };
 
 export default Chatbot;
