@@ -17,12 +17,10 @@ const client = new MercadoPagoConfig({
     accessToken: process.env.MP_ACCESS_TOKEN || 'APP_USR-3473191615659453-030400-81435794a95670ce95ff1535f712a58a-3243325156'
 });
 
-const payment = new Payment(client);
-
 // Configuración de Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-pro"
+    model: "gemini-2.5-flash"
 });
 
 app.get('/', (req, res) => {
