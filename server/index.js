@@ -54,13 +54,24 @@ app.post('/process_payment', async (req, res) => {
 
 app.post('/api/chat', async (req, res) => {
     try {
-        const { message, history } = req.body;
+        const { messages, message } = req.body;
 
-        const chat = model.startChat({
-            history: history || [],
-        });
+        // Construir el historial en formato texto plano
+        let conversationText = "";
+        if (messages && messages.length > 0) {
+            conversationText = messages.map(m => `${m.sender === 'user' ? 'Cliente' : 'Patrón-Bot'}: ${m.text}`).join('\n');
+        }
 
-        const result = await chat.sendMessage(message);
+        const prompt = `
+HISTORIAL DE LA CONVERSACIÓN:
+${conversationText}
+
+Cliente: ${message}
+
+Responde como "Patrón-Bot" al último mensaje del Cliente. Solo proporciona tu respuesta como asistente, no incluyas el texto "Patrón-Bot:" al inicio, y respeta estrictamente las INSTRUCCIONES DEL SISTEMA.
+`;
+
+        const result = await model.generateContent(prompt);
         const response = await result.response;
         const text = response.text();
 

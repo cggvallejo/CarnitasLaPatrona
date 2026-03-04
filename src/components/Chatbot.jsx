@@ -45,36 +45,18 @@ const Chatbot = () => {
 
     const processBotResponse = async (inputText) => {
         try {
-            // Preparar historial para Gemini (debe empezar con 'user')
-            // Omitimos el primer mensaje de bienvenida del bot para cumplir la regla de Gemini
-            // Construir el historial asegurando que los roles alternen (Gemini requiere user -> model -> user)
-            let formattedHistory = [];
-            // Omitimos el mensaje inicial del bot
-            const pastMessages = messages.slice(1);
-
-            for (const m of pastMessages) {
-                const role = m.sender === 'user' ? 'user' : 'model';
-                if (formattedHistory.length > 0 && formattedHistory[formattedHistory.length - 1].role === role) {
-                    // Si el rol es el mismo que el anterior, concatenamos el texto
-                    formattedHistory[formattedHistory.length - 1].parts[0].text += `\n${m.text}`;
-                } else {
-                    formattedHistory.push({ role, parts: [{ text: m.text }] });
-                }
-            }
-
-            // El historial DEBE empezar con 'user' si no está vacío
-            if (formattedHistory.length > 0 && formattedHistory[0].role !== 'user') {
-                formattedHistory.shift();
-            }
-
-            const history = formattedHistory;
+            // Simplificado: enviamos el arreglo de mensajes tal cual al backend robusto
+            const bodyPayload = {
+                messages: messages,
+                message: inputText
+            };
 
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
             console.log('Using API URL:', apiUrl);
             const response = await fetch(`${apiUrl}/api/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: inputText, history })
+                body: JSON.stringify(bodyPayload)
             });
 
             const data = await response.json();
