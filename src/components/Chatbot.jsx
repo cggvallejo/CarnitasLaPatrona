@@ -3,9 +3,14 @@ import { useCart } from '../context/CartContext';
 import { products } from '../data/products';
 
 const Chatbot = () => {
-    const [orderState, setOrderState] = useState('IDLE'); // IDLE, ASKING_QUANTITY, ASKING_BEVERAGES, ASKING_LOCATION, ASKING_PAYMENT, CONFIRMING
+    const { addToCart } = useCart();
+    const [isOpen, setIsOpen] = useState(false);
+    const [messages, setMessages] = useState([
+        { id: 1, text: "¡Hola! Soy el Patrón-Bot 🤠. ¿Qué se te antoja hoy?", sender: 'bot' }
+    ]);
+    const [inputValue, setInputValue] = useState('');
     const [currentOrder, setCurrentOrder] = useState({ products: [], location: '', paymentMethod: '' });
-    const [lastAction, setLastAction] = useState(null);
+    const scrollRef = useRef(null);
 
     useEffect(() => {
         if (scrollRef.current) {
@@ -31,118 +36,69 @@ const Chatbot = () => {
         setMessages(prev => [...prev, { id: Date.now(), text, sender: 'bot' }]);
     };
 
-    const processBotResponse = (inputText) => {
-        const text = inputText.toLowerCase();
-        let botText = "";
+    const processBotResponse = async (inputText) => {
+        try {
+            // Preparar historial para Gemini (formato simple)
+            const history = messages.map(m => ({
+                role: m.sender === 'user' ? 'user' : 'model',
+                parts: [{ text: m.text }]
+            }));
 
-        // Máquina de estados
-        switch (orderState) {
-            case 'IDLE':
-                if (text.includes('hola') || text.includes('buenos dias')) {
-                    botText = "¡Hola! Soy el Patrón-Bot 🤠. ¿Qué se te antoja hoy? Tengo tacos, tortas, carnitas por kilo y bebidas.";
-                } else if (text.includes('taco') || text.includes('torta') || text.includes('kilo')) {
-                    const foundProduct = products.find(p => text.includes(p.name.toLowerCase().split(' ')[0]));
-                    if (foundProduct) {
-                        setLastAction({ type: 'ADD_PRODUCT', product: foundProduct });
-                        setOrderState('ASKING_QUANTITY');
-                        botText = `¡Excelente elección! ¿Cuántas órdenes de ${foundProduct.name} te gustaría pedir?`;
-                    } else {
-                        botText = "¿Qué tipo de taco o platillo te gustaría? (Maciza, Surtida, Cuerito, Torta)";
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+            const response = await fetch(`${apiUrl}/api/chat`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: inputText, history })
+            });
+
+            const data = await response.json();
+            let botText = data.text;
+
+            // Detectar si hay un resumen de pedido en el mensaje
+            if (botText.includes('[ORDER_SUMMARY]')) {
+                const parts = botText.split('[ORDER_SUMMARY]');
+                const jsonPart = parts[1].split('[/ORDER_SUMMARY]')[0];
+                botText = parts[0] + (parts[1].split('[/ORDER_SUMMARY]')[1] || '');
+
+                try {
+                    const orderData = JSON.parse(jsonPart);
+                    setCurrentOrder(orderData);
+
+                    // Sincronizar con el carrito global si hay productos
+                    if (orderData.products && orderData.products.length > 0) {
+                        orderData.products.forEach(p => {
+                            const productBase = products.find(prod => prod.name.toLowerCase().includes(p.name.toLowerCase()));
+                            if (productBase) {
+                                for (let i = 0; i < p.quantity; i++) addToCart(productBase);
+                            }
+                        });
                     }
-                } else if (text.includes('menu')) {
-                    botText = "Nuestro menú incluye: Tacos (Maciza, Surtida, Cuerito), Tortas, Carnitas por Kilo y Bebidas. ¿Qué te gustaría ordenar?";
-                } else {
-                    botText = "Perdona, no te entendí bien. ¿Quieres pedir unos tacos, ver el menú o prefieres que te ayude a finalizar tu orden?";
-                }
-                break;
 
-            case 'ASKING_QUANTITY':
-                const quantity = parseInt(text.match(/\d+/) || [1]);
-                if (!isNaN(quantity) && quantity > 0) {
-                    const product = lastAction.product;
-                    // Actualizar carrito local del chatbot
-                    setCurrentOrder(prev => ({
-                        ...prev,
-                        products: [...prev.products, { ...product, quantity }]
-                    }));
-                    // También agregar al contexto del carrito general si se desea sincronizar
-                    for (let i = 0; i < quantity; i++) addToCart(product);
-
-                    setOrderState('ASKING_BEVERAGES');
-                    botText = `¡Listo! He añadido ${quantity} ${product.name}. ¿Te gustaría agregar alguna bebida? (Refresco, Agua de Sabor o presiona 'no' para continuar)`;
-                } else {
-                    botText = "Por favor, dime una cantidad válida (ejemplo: 2 o 3).";
-                }
-                break;
-
-            case 'ASKING_BEVERAGES':
-                if (text.includes('si') || text.includes('bebida') || text.includes('refresco') || text.includes('agua')) {
-                    const beverage = products.find(p => p.category === 'Bebidas' && (text.includes(p.name.toLowerCase().split(' ')[0]) || text.includes('refresco') || text.includes('agua')));
-                    if (beverage) {
-                        setCurrentOrder(prev => ({
-                            ...prev,
-                            products: [...prev.products, { ...beverage, quantity: 1 }]
-                        }));
-                        addToCart(beverage);
-                        setOrderState('ASKING_LOCATION');
-                        botText = `¡Perfecto! Un(a) ${beverage.name} añadida. Ahora, para el envío, ¿cuál es tu dirección completa de entrega? 📍`;
-                    } else {
-                        botText = "Contamos con Refresco 600ml, Agua de Sabor o Refresco Familiar 2L. ¿Cuál prefieres?";
+                    // Si el mensaje indica confirmación definitiva, disparamos WhatsApp
+                    if (botText.toLowerCase().includes('enviado') || botText.toLowerCase().includes('cocina')) {
+                        setTimeout(() => {
+                            handleWhatsAppClick();
+                            setCurrentOrder({ products: [], location: '', paymentMethod: '' });
+                        }, 2000);
                     }
-                } else {
-                    setOrderState('ASKING_LOCATION');
-                    botText = "Entendido, sin bebidas por ahora. ¿A qué dirección enviamos tu pedido? 📍";
+                } catch (e) {
+                    console.error("Error al parsear el resumen del pedido:", e);
                 }
-                break;
+            }
 
-            case 'ASKING_LOCATION':
-                if (text.length > 5) {
-                    setCurrentOrder(prev => ({ ...prev, location: inputText }));
-                    setOrderState('ASKING_PAYMENT');
-                    botText = "¡Gracias! Ya casi terminamos. ¿Cómo prefieres pagar? (Efectivo, Tarjeta o Mercado Pago)";
-                } else {
-                    botText = "Por favor, proporciona una dirección de entrega válida para poder enviarte el pedido.";
-                }
-                break;
-
-            case 'ASKING_PAYMENT':
-                if (text.includes('efectivo') || text.includes('tarjeta') || text.includes('mercado')) {
-                    const payment = text.includes('efectivo') ? 'Efectivo' : (text.includes('tarjeta') ? 'Tarjeta' : 'Mercado Pago');
-                    setCurrentOrder(prev => ({ ...prev, paymentMethod: payment }));
-                    setOrderState('CONFIRMING');
-                    botText = `¡Excelente! Tu pedido será pagado con ${payment}. ¿Confirmas que todos los datos son correctos para enviar a cocina? (Responde 'confirmar')`;
-                } else {
-                    botText = "¿Preferirías pagar en Efectivo, con Tarjeta al recibir, o por Mercado Pago?";
-                }
-                break;
-
-            case 'CONFIRMING':
-                if (text.includes('si') || text.includes('confirmar') || text.includes('ok')) {
-                    botText = "¡Fuego en la cocina! 🔥 Tu pedido ha sido enviado. En un momento te contactarán vía WhatsApp para el seguimiento.";
-                    setTimeout(() => {
-                        handleWhatsAppClick();
-                        setOrderState('IDLE');
-                        setCurrentOrder({ products: [], location: '', paymentMethod: '' });
-                    }, 2000);
-                } else {
-                    botText = "Si necesitas cambiar algo, solo dímelo. Si no, escribe 'confirmar'.";
-                }
-                break;
-
-            default:
-                setOrderState('IDLE');
-                botText = "Hubo un pequeño error en mi lógica, pero ya estoy listo de nuevo. ¿Qué te gustaría pedir?";
+            addBotMessage(botText.trim());
+        } catch (error) {
+            console.error("Error en Patrón-Bot:", error);
+            addBotMessage("¡Híjole! Tuve un problema al procesar tu mensaje. ¿Me lo repites? 🤠");
         }
-
-        addBotMessage(botText);
     };
 
     const handleWhatsAppClick = () => {
-        const phone = "521234567890";
+        const phone = "523312345678"; // Número de ejemplo
         const total = currentOrder.products.reduce((acc, p) => acc + (p.price * p.quantity), 0);
         const itemsList = currentOrder.products.map(p => `- ${p.quantity}x ${p.name}`).join('\n');
 
-        const message = `¡Hola Patrón! Vengo del Chatbot 🤠. Aquí está mi pedido:\n\n` +
+        const message = `¡Hola Patrón! Vengo del nuevo Chatbot con IA 🤠. Aquí está mi pedido:\n\n` +
             `*Detalle del Pedido:*\n${itemsList}\n\n` +
             `*Total:* $${total.toFixed(2)}\n\n` +
             `*Dirección de Entrega:* ${currentOrder.location}\n` +
