@@ -1,18 +1,28 @@
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&f[]=clash-display@200,400,700,500,600,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Prata&display=swap');
 
 :root {
   --primary: #D35400;
+  /* Logo Terracotta - used as accent */
   --primary-light: #E67E22;
-  --secondary: #A04000;
-  --accent: #27AE60;
-  --bg-color: #FAFAFA;
-  --card-bg: #FFFFFF;
-  --text-main: #1C1C1C;
-  --text-muted: #666666;
+  --secondary: #121212;
+  /* Rich Black */
+  --accent: #FFFFFF;
+  /* Pure White */
+  --bg-color: #0A0A0A;
+  /* Deep Charcoal/Pure Black */
+  --card-bg: #111111;
+  /* Subtle card dark grey */
+  --text-main: #FFFFFF;
+  --text-muted: #888888;
   --white: #FFFFFF;
-  --shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
-  --glass: rgba(255, 255, 255, 0.75);
-  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --gold: #D4AF37;
+  --gold-light: #F9E79F;
+  --shadow: none;
+  /* No shadows for avant-garde minimalism */
+  --glass: rgba(10, 10, 10, 0.9);
+  --transition: all 0.5s cubic-bezier(0.2, 0, 0, 1);
+  --font-serif: 'Prata', serif;
+  --font-sans: 'Inter', sans-serif;
 }
 
 * {
@@ -22,12 +32,18 @@
 }
 
 body {
-  font-family: 'Satoshi', sans-serif;
+  font-family: 'Outfit', 'Satoshi', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-main);
-  line-height: 1.6;
+  line-height: 1.7;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+button,
+a,
+.add-btn {
+  cursor: pointer;
 }
 
 h1,
@@ -100,15 +116,15 @@ button {
 
 @keyframes float {
   0% {
-    transform: translateY(0px);
+    transform: translateY(0px) rotate(0deg);
   }
 
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-15px) rotate(2deg);
   }
 
   100% {
-    transform: translateY(0px);
+    transform: translateY(0px) rotate(0deg);
   }
 }
 
@@ -149,7 +165,7 @@ button {
 
 /* Scrollbar Premium */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -157,20 +173,24 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ddd;
+  background: #333;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-light);
+  background: var(--primary);
 }
 
 /* Glassmorphism Classes */
 .glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(211, 84, 0, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(250, 215, 160, 0.1);
+}
+
+.terracotta-glow {
+  box-shadow: 0 0 30px rgba(211, 84, 0, 0.2);
 }
 
 /* Interacciones y Pulsos */
@@ -179,8 +199,9 @@ button {
 }
 
 .button-pop:hover {
-  background-color: var(--primary-light) !important;
-  box-shadow: 0 6px 15px rgba(211, 84, 0, 0.3) !important;
+  background-color: var(--accent) !important;
+  color: var(--bg-color) !important;
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3) !important;
 }
 
 .animate-pulse {

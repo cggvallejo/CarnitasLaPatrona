@@ -11,12 +11,18 @@ const Header = () => {
         <header style={styles.header}>
             <div className="container" style={styles.container}>
                 <div style={styles.logoContainer}>
-                    <img src={logo} alt="Carnitas El Patrón Logo" style={styles.logo} />
-                    <h1 style={styles.title}>El Patrón</h1>
+                    <motion.img
+                        whileHover={{ rotate: 10 }}
+                        src={logo}
+                        alt="Carnitas El Patrón Logo"
+                        style={styles.logo}
+                    />
+                    <h1 style={styles.title}>EL PATRÓN</h1>
                 </div>
 
                 <nav style={styles.nav}>
                     <a href="#menu" style={styles.navLink}>Menú</a>
+                    <a href="#reviews" style={styles.navLink}>Reseñas</a>
                     <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -42,72 +48,82 @@ const Header = () => {
 
 const styles = {
     header: {
-        padding: '1rem 0',
-        backgroundColor: 'var(--glass)',
-        backdropFilter: 'blur(10px)',
-        position: 'sticky',
+        position: 'fixed',
         top: 0,
-        zIndex: 100,
-        borderBottom: '1px solid rgba(0,0,0,0.05)',
+        left: 0,
+        right: 0,
+        height: '90px',
+        backgroundColor: 'rgba(10, 10, 10, 0.95)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+        zIndex: 1000,
+        display: 'flex',
+        alignItems: 'center',
+        backdropFilter: 'blur(20px)',
     },
     container: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        padding: '0 4rem',
+        maxWidth: '1800px',
+        margin: '0 auto',
+        width: '100%',
     },
     logoContainer: {
         display: 'flex',
         alignItems: 'center',
-        gap: '0.5rem',
+        gap: '1.5rem',
     },
     logo: {
-        height: '50px',
-        borderRadius: '50%',
+        height: '45px',
+        width: '45px',
+        objectFit: 'contain',
     },
     title: {
-        fontSize: '1.5rem',
-        color: 'var(--primary)',
+        fontSize: '1.4rem',
+        fontFamily: 'var(--font-serif)',
+        color: 'var(--accent)',
+        letterSpacing: '0.2em',
+        fontWeight: 400,
         margin: 0,
     },
     nav: {
         display: 'flex',
         alignItems: 'center',
-        gap: '2rem',
+        gap: '2.5rem',
     },
     navLink: {
-        fontWeight: 600,
-        color: 'var(--text-main)',
+        color: 'var(--text-muted)',
+        textDecoration: 'none',
+        fontSize: '0.85rem',
+        fontWeight: 400,
+        letterSpacing: '0.2em',
+        transition: 'var(--transition)',
+        textTransform: 'uppercase',
     },
     cartBtn: {
-        background: 'var(--primary)',
-        color: 'white',
-        padding: '0.6rem 1.2rem',
-        borderRadius: '50px',
+        background: 'none',
+        border: 'none',
+        color: 'var(--accent)',
+        cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',
-        gap: '0.5rem',
+        gap: '1rem',
+        padding: '0.8rem',
+        transition: 'var(--transition)',
         position: 'relative',
-        fontSize: '1.1rem',
     },
     cartBadge: {
         position: 'absolute',
-        top: '-5px',
-        right: '-5px',
-        background: 'var(--accent)',
+        top: '0',
+        right: '0',
+        background: 'var(--primary)',
         color: 'white',
-        fontSize: '0.7rem',
-        width: '20px',
-        height: '20px',
+        fontSize: '0.65rem',
+        padding: '2px 6px',
         borderRadius: '50%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontWeight: 'bold',
-        border: '2px solid white',
+        fontWeight: 600,
     },
-    cartIcon: {
-        fontSize: '1.2rem',
-    }
 };
 
 export default Header;

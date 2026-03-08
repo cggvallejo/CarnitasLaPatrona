@@ -7,6 +7,7 @@ import { CartProvider } from './context/CartContext';
 import Chatbot from './components/Chatbot';
 import PorkbotPeeker from './components/PorkbotPeeker';
 import PorkbotCursorThief from './components/PorkbotCursorThief';
+import Reviews from './components/Reviews';
 import { Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -14,12 +15,7 @@ function App() {
   return (
     <CartProvider>
       <div className="app">
-        {/* Dynamic Animated Background */}
-        <div className="dynamic-bg">
-          <div className="bg-shape shape-1"></div>
-          <div className="bg-shape shape-2"></div>
-          <div className="bg-shape shape-3"></div>
-        </div>
+
 
         <Header />
 
@@ -30,6 +26,7 @@ function App() {
         >
           <Hero />
           <ProductGrid />
+          <Reviews />
         </motion.main>
 
         <motion.footer
@@ -40,10 +37,13 @@ function App() {
           style={styles.footer}
         >
           <div className="container" style={styles.footerContent}>
-            <p>&copy; 2026 Carnitas "El Patrón" - Guadalajara, Jal.</p>
-            <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-              Hecho con <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ repeat: Infinity, duration: 1.5 }}><Heart size={16} fill="var(--primary)" color="var(--primary)" /></motion.div> para los amantes del buen taco.
+            <span style={styles.footerBrand}>Carnitas El Patrón</span>
+            <p style={{ fontSize: '0.8rem', letterSpacing: '0.1em', marginTop: '2rem' }}>
+              &copy; 2026 GUADALAJARA, JALISCO. TODOS LOS DERECHOS RESERVADOS.
             </p>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginTop: '3rem', fontSize: '0.75rem', opacity: 0.5 }}>
+              HECHO CON <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ repeat: Infinity, duration: 1.5 }}><Heart size={12} fill="var(--primary)" color="var(--primary)" /></motion.div> PARA LOS AMANTES DEL BUEN TACO.
+            </div>
           </div>
         </motion.footer>
 
@@ -58,13 +58,26 @@ function App() {
 
 const styles = {
   footer: {
-    padding: '4rem 0',
-    backgroundColor: 'var(--text-main)',
-    color: 'rgba(255,255,255,0.7)',
-    marginTop: '4rem',
+    padding: '8rem 0',
+    backgroundColor: 'var(--bg-color)',
+    borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+    color: 'var(--text-muted)',
+    marginTop: '10rem',
   },
   footerContent: {
     textAlign: 'center',
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '0 2rem'
+  },
+  footerBrand: {
+    fontFamily: 'var(--font-serif)',
+    fontSize: '1.8rem',
+    color: 'var(--accent)',
+    textTransform: 'uppercase',
+    letterSpacing: '0.2em',
+    marginBottom: '2rem',
+    display: 'block'
   }
 };
 

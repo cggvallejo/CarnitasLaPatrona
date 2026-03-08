@@ -1,4 +1,4 @@
-import React from 'react';
+import { motion } from 'framer-motion';
 import { useCart } from '../context/CartContext';
 import { products } from '../data/products';
 
@@ -10,10 +10,24 @@ const ProductGrid = () => {
             <div className="container">
                 <h2 style={styles.title}>Nuestro Menú</h2>
                 <div style={styles.grid}>
-                    {products.map((item) => (
-                        <div key={item.id} style={styles.card} className="hover-lift animate-fade glass">
+                    {products.map((item, index) => (
+                        <motion.div
+                            key={item.id}
+                            style={styles.card}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            whileHover={{ y: -10 }}
+                        >
                             <div style={styles.imageContainer}>
-                                <img src={item.image} alt={item.name} style={styles.image} />
+                                <motion.img
+                                    whileHover={{ scale: 1.1 }}
+                                    transition={{ duration: 0.6 }}
+                                    src={item.image}
+                                    alt={item.name}
+                                    style={styles.image}
+                                />
                                 <span style={styles.categoryBadge}>{item.category}</span>
                             </div>
                             <div style={styles.content}>
@@ -21,16 +35,16 @@ const ProductGrid = () => {
                                 <p style={styles.description}>{item.description}</p>
                                 <div style={styles.footer}>
                                     <span style={styles.price}>${item.price.toFixed(2)}</span>
-                                    <button
+                                    <motion.button
+                                        whileTap={{ scale: 0.9 }}
                                         onClick={() => addToCart(item)}
                                         style={styles.addBtn}
-                                        className="button-pop"
                                     >
-                                        Añadir +
-                                    </button>
+                                        AÑADIR +
+                                    </motion.button>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>
@@ -40,86 +54,106 @@ const ProductGrid = () => {
 
 const styles = {
     section: {
-        padding: '6rem 0',
-        backgroundColor: 'transparent',
+        padding: '10rem 0',
+        backgroundColor: 'var(--bg-color)',
     },
     title: {
-        fontSize: '2.5rem',
+        fontSize: '3.5rem',
         textAlign: 'center',
-        marginBottom: '4rem',
-        color: 'var(--text-main)',
+        marginBottom: '8rem',
+        color: 'var(--accent)',
+        letterSpacing: '0.15em',
+        textTransform: 'uppercase',
+        fontFamily: 'var(--font-serif)',
+        fontWeight: 400,
     },
     grid: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: '2.5rem',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+        gap: '6rem',
+        padding: '0 4rem',
+        maxWidth: '1800px',
+        margin: '0 auto',
     },
     card: {
-        backgroundColor: 'rgba(255, 255, 255, 0.4)', /* Fallback if .glass doesn't override */
-        borderRadius: '20px',
-        overflow: 'hidden',
-        boxShadow: 'var(--shadow)',
+        backgroundColor: 'transparent',
+        border: 'none',
         transition: 'var(--transition)',
-        border: '1px solid rgba(255,255,255,0.3)',
+        position: 'relative',
+        overflow: 'hidden',
     },
     imageContainer: {
         position: 'relative',
-        height: '200px',
+        height: '350px',
         overflow: 'hidden',
     },
     image: {
         width: '100%',
         height: '100%',
         objectFit: 'cover',
+        opacity: 1,
+        borderRadius: '2.5rem',
         transition: 'var(--transition)',
     },
-    category: {
+    categoryBadge: {
         position: 'absolute',
-        top: '1rem',
-        right: '1rem',
-        background: 'var(--primary)',
-        color: 'white',
-        padding: '0.3rem 0.8rem',
-        borderRadius: '20px',
-        fontSize: '0.75rem',
-        fontWeight: 600,
+        top: '1.5rem',
+        right: '1.5rem',
+        backgroundColor: 'rgba(10, 10, 10, 0.8)',
+        backdropFilter: 'blur(10px)',
+        color: 'var(--accent)',
+        padding: '0.6rem 1.2rem',
+        fontSize: '0.7rem',
+        letterSpacing: '0.2em',
+        textTransform: 'uppercase',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        zIndex: 2,
     },
-    info: {
-        padding: '1.5rem',
+    content: {
+        padding: '2.5rem 0',
     },
     name: {
-        fontSize: '1.3rem',
-        marginBottom: '0.5rem',
-        color: 'var(--text-main)',
+        fontSize: '1.4rem',
+        fontFamily: 'var(--font-serif)',
+        color: 'var(--accent)',
+        marginBottom: '1rem',
+        fontWeight: 400,
+        textTransform: 'uppercase',
+        letterSpacing: '0.1em',
     },
     description: {
-        fontSize: '0.9rem',
+        fontSize: '0.95rem',
         color: 'var(--text-muted)',
-        marginBottom: '1.5rem',
-        height: '3.6rem',
+        lineHeight: '1.7',
+        marginBottom: '2rem',
+        fontWeight: 300,
+        height: '3.4rem',
         overflow: 'hidden',
-        display: '-webkit-box',
-        WebkitLineClamp: 3,
-        WebkitBoxOrient: 'vertical',
     },
     footer: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        paddingTop: '2rem',
+        borderTop: '1px solid rgba(255, 255, 255, 0.05)',
     },
     price: {
-        fontSize: '1.25rem',
-        fontWeight: 700,
-        color: 'var(--primary)',
+        fontSize: '1.2rem',
+        color: 'var(--accent)',
+        fontWeight: 500,
+        fontFamily: 'var(--font-sans)',
     },
     addBtn: {
-        backgroundColor: 'var(--primary)',
-        color: 'white',
-        padding: '0.6rem 1.2rem',
-        borderRadius: '10px',
-        fontWeight: 600,
-        fontSize: '0.9rem',
-        boxShadow: '0 4px 12px rgba(211, 84, 0, 0.2)',
+        background: 'none',
+        border: '1px solid var(--primary)',
+        color: 'var(--primary)',
+        padding: '0.8rem 2rem',
+        fontSize: '0.75rem',
+        fontWeight: 700,
+        letterSpacing: '0.2em',
+        cursor: 'pointer',
+        transition: 'var(--transition)',
+        textTransform: 'uppercase',
     }
 };
 

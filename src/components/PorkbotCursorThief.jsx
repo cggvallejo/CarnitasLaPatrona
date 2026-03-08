@@ -91,7 +91,10 @@ const PorkbotCursorThief = () => {
                             width: '100px',
                             height: '100px',
                             objectFit: 'contain',
-                            clipPath: 'circle(48%)' // Quitar fondo blanco
+                            clipPath: 'circle(45%)',
+                            WebkitClipPath: 'circle(45%)',
+                            filter: 'brightness(1.05) contrast(1.05)',
+                            opacity: 1
                         }}
                         animate={{
                             rotate: [-5, 5, -5]

@@ -94,9 +94,10 @@ const PorkbotPeeker = () => {
                             width: '100%',
                             height: '100%',
                             objectFit: 'contain',
-                            clipPath: 'circle(48% at 50% 50%)',
-                            WebkitClipPath: 'circle(48% at 50% 50%)',
-                            filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.2))'
+                            clipPath: 'circle(45% at 50% 50%)',
+                            WebkitClipPath: 'circle(45% at 50% 50%)',
+                            filter: 'brightness(1.05) contrast(1.05)',
+                            opacity: 1
                         }}
                     />
                 </motion.div>

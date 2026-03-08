@@ -256,9 +256,9 @@ const Chatbot = () => {
                                 >
                                     <div style={{
                                         ...styles.messageBubble,
-                                        backgroundColor: msg.role === 'bot' ? '#f0f0f0' : 'var(--primary)',
-                                        color: msg.role === 'bot' ? '#333' : 'white',
-                                        borderRadius: msg.role === 'bot' ? '0 15px 15px 15px' : '15px 15px 0 15px',
+                                        backgroundColor: msg.role === 'bot' ? 'rgba(255, 255, 255, 0.05)' : 'var(--primary)',
+                                        color: 'var(--accent)',
+                                        border: msg.role === 'bot' ? '1px solid rgba(255, 255, 255, 0.05)' : 'none',
                                         whiteSpace: 'pre-wrap'
                                     }}>
                                         {msg.text}
@@ -326,23 +326,153 @@ const Chatbot = () => {
 };
 
 const styles = {
-    chatWrapper: { position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 1000, fontFamily: 'Outfit, sans-serif' },
-    launcher: { width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'var(--primary)', color: 'white', fontSize: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 5px 20px rgba(0,0,0,0.2)', border: 'none', cursor: 'pointer' },
-    window: { position: 'absolute', bottom: '80px', right: '0', width: '340px', height: '500px', backgroundColor: 'rgba(255, 255, 255, 0.65)', backdropFilter: 'blur(15px)', WebkitBackdropFilter: 'blur(15px)', border: '1px solid rgba(255, 255, 255, 0.4)', borderRadius: '20px', boxShadow: '0 10px 40px rgba(0,0,0,0.15)', display: 'flex', flexDirection: 'column', overflow: 'hidden' },
-    header: { padding: '1rem', backgroundColor: 'rgba(211, 84, 0, 0.9)', color: 'white', borderBottom: '1px solid rgba(255,255,255,0.2)' },
-    botInfo: { display: 'flex', alignItems: 'center', gap: '0.8rem' },
-    botAvatarImg: { width: '45px', height: '45px', borderRadius: '50%', border: '2px solid white', objectFit: 'cover', backgroundColor: '#ffd1dc' },
-    botName: { margin: 0, fontSize: '1.2rem', fontWeight: 'bold' },
-    botStatus: { opacity: 0.9, fontSize: '0.8rem' },
-    messages: { flex: 1, padding: '1rem', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.8rem', backgroundColor: 'transparent' },
+    chatWrapper: {
+        position: 'fixed',
+        bottom: '2.5rem',
+        right: '2.5rem',
+        zIndex: 1000,
+        fontFamily: 'var(--font-sans)'
+    },
+    launcher: {
+        width: '65px',
+        height: '65px',
+        borderRadius: '50%',
+        backgroundColor: 'var(--primary)',
+        color: 'white',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        boxShadow: '0 10px 40px rgba(211, 84, 0, 0.4)',
+        border: 'none',
+        cursor: 'pointer'
+    },
+    window: {
+        position: 'absolute',
+        bottom: '90px',
+        right: '0',
+        width: '380px',
+        height: '600px',
+        backgroundColor: 'rgba(10, 10, 10, 0.95)',
+        backdropFilter: 'blur(30px)',
+        border: '1px solid rgba(255, 255, 255, 0.05)',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden'
+    },
+    header: {
+        padding: '2rem',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    botInfo: { display: 'flex', alignItems: 'center', gap: '1.2rem' },
+    botAvatarImg: {
+        width: '45px',
+        height: '45px',
+        borderRadius: '50%',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        objectFit: 'cover',
+        backgroundColor: 'transparent',
+        clipPath: 'circle(38%)',
+        WebkitClipPath: 'circle(38%)',
+        filter: 'brightness(1.1) contrast(1.1)'
+    },
+    botName: {
+        margin: 0,
+        fontSize: '1.2rem',
+        fontFamily: 'var(--font-serif)',
+        color: 'var(--accent)',
+        textTransform: 'uppercase',
+        letterSpacing: '0.1em'
+    },
+    botStatus: {
+        color: 'var(--primary)',
+        fontSize: '0.75rem',
+        textTransform: 'uppercase',
+        letterSpacing: '0.1em',
+        fontWeight: 600
+    },
+    messages: {
+        flex: 1,
+        padding: '2rem',
+        overflowY: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1.5rem'
+    },
     messageRow: { display: 'flex', width: '100%' },
-    messageBubble: { maxWidth: '85%', padding: '0.8rem 1rem', fontSize: '0.95rem', lineHeight: '1.4', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' },
-    quickRepliesContainer: { display: 'flex', flexWrap: 'wrap', gap: '0.5rem', padding: '1rem', backgroundColor: 'rgba(250, 250, 250, 0.4)', borderTop: '1px solid rgba(255, 255, 255, 0.5)', justifyContent: 'center' },
-    quickReplyBtn: { backgroundColor: 'rgba(255, 255, 255, 0.8)', color: 'var(--primary)', border: '1px solid rgba(230, 81, 0, 0.3)', borderRadius: '15px', padding: '0.6rem 1rem', fontSize: '0.9rem', cursor: 'pointer', transition: 'all 0.2s', fontWeight: 'bold', width: '100%' },
-    addressInputContainer: { display: 'flex', flexDirection: 'column', gap: '0.8rem', padding: '1rem', backgroundColor: 'rgba(250, 250, 250, 0.4)', borderTop: '1px solid rgba(255, 255, 255, 0.5)' },
-    addressInput: { flex: 1, padding: '0.8rem', borderRadius: '15px', border: '1px solid rgba(230,81,0,0.3)', outline: 'none', backgroundColor: 'rgba(255,255,255,0.8)', fontFamily: 'Outfit, sans-serif' },
-    addressSubmitBtn: { backgroundColor: 'var(--primary)', color: 'white', border: 'none', borderRadius: '15px', padding: '0 1.2rem', fontWeight: 'bold', cursor: 'pointer', fontFamily: 'Outfit, sans-serif' },
-    locationBtn: { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', backgroundColor: '#e8f4fd', color: '#0984e3', border: '1px solid #74b9ff', borderRadius: '15px', padding: '0.6rem', fontWeight: 'bold', cursor: 'pointer', fontFamily: 'Outfit, sans-serif', width: '100%', transition: 'all 0.2s' }
+    messageBubble: {
+        maxWidth: '85%',
+        padding: '1.2rem',
+        fontSize: '0.9rem',
+        lineHeight: '1.6',
+        letterSpacing: '0.02em',
+        borderRadius: '1.5rem',
+    },
+    quickRepliesContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.8rem',
+        padding: '2rem',
+        borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+    },
+    quickReplyBtn: {
+        backgroundColor: 'transparent',
+        color: 'var(--accent)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        padding: '1rem',
+        fontSize: '0.8rem',
+        cursor: 'pointer',
+        transition: 'all 0.3s',
+        fontWeight: 600,
+        textTransform: 'uppercase',
+        letterSpacing: '0.1em',
+        textAlign: 'left'
+    },
+    addressInputContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1.5rem',
+        padding: '2rem',
+        borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+    },
+    addressInput: {
+        width: '100%',
+        padding: '1.2rem',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        backgroundColor: 'transparent',
+        color: 'var(--accent)',
+        fontSize: '0.9rem',
+        outline: 'none',
+        fontFamily: 'var(--font-sans)'
+    },
+    addressSubmitBtn: {
+        backgroundColor: 'var(--accent)',
+        color: 'var(--bg-color)',
+        border: 'none',
+        padding: '1.2rem',
+        fontWeight: 700,
+        cursor: 'pointer',
+        textTransform: 'uppercase',
+        letterSpacing: '0.1em',
+        fontSize: '0.8rem'
+    },
+    locationBtn: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '0.8rem',
+        backgroundColor: 'transparent',
+        color: 'var(--primary)',
+        border: '1px solid var(--primary)',
+        padding: '1rem',
+        fontWeight: 600,
+        cursor: 'pointer',
+        textTransform: 'uppercase',
+        letterSpacing: '0.1em',
+        fontSize: '0.8rem'
+    }
 };
 
 export default Chatbot;

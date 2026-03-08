@@ -3,6 +3,7 @@ import kiloMaciza from '../assets/images/kilo_maciza.png';
 import tacoMaciza from '../assets/images/taco_maciza.png';
 import tacoSurtida from '../assets/images/taco_surtida.png';
 import bebidasImg from '../assets/images/bebidas.png';
+import salsaEspecial from '../assets/images/salsa_especial.png';
 
 export const products = [
     {
@@ -90,7 +91,7 @@ export const products = [
         name: 'Salsa Especial (250ml)',
         description: 'Nuestra famosa salsa verde de habanero y aguacate.',
         price: 35.00,
-        image: 'https://images.unsplash.com/photo-1599307767316-776533bb941c?auto=format&fit=crop&q=80&w=400',
+        image: salsaEspecial,
         category: 'Complementos'
     }
 ];

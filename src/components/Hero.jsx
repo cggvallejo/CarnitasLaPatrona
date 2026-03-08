@@ -7,35 +7,52 @@ const Hero = () => {
     return (
         <section style={styles.hero}>
             <div className="container" style={styles.container}>
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    style={styles.content}
-                >
-                    <h2 style={styles.subtitle}>Sabor Tradicional</h2>
-                    <h1 style={styles.title}>Las Mejores Carnitas de la Región</h1>
-                    <p style={styles.description}>
-                        Tradición familiar en cada bocado. Nuestra maciza y cuerito son cocinados lentamente en cazos de cobre para lograr ese dorado perfecto y jugosidad incomparable.
-                    </p>
-                    <motion.a
-                        href="#menu"
-                        style={styles.cta}
-                        whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(211, 84, 0, 0.4)" }}
-                        whileTap={{ scale: 0.95 }}
+                <div style={styles.content}>
+                    <motion.span
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        style={styles.subtitle}
                     >
-                        Ordenar Ahora <ArrowRight size={20} style={{ marginLeft: '8px' }} />
-                    </motion.a>
-                </motion.div>
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                    style={styles.imageContainer}
-                >
-                    <img src={heroImage} alt="Delicious Carnitas" style={styles.image} />
-                    <div style={styles.blob}></div>
-                </motion.div>
+                        EST. 1995 • TRADICIÓN MEXICANA
+                    </motion.span>
+                    <motion.h2
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        style={styles.title}
+                    >
+                        Las Mejores <br />
+                        <span style={styles.titleAccent}>Carnitas</span> <br />
+                        De La Región
+                    </motion.h2>
+                    <motion.p
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        style={styles.description}
+                    >
+                        Un legado de sabor artesanal, preparado con los ingredientes más frescos y la pasión de nuestra familia.
+                    </motion.p>
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 }}
+                    >
+                        <button style={styles.cta}>
+                            EXPLORAR MENÚ
+                        </button>
+                    </motion.div>
+                </div>
+                <div style={styles.imageContainer}>
+                    <motion.img
+                        initial={{ opacity: 0, scale: 1.1 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1.5 }}
+                        src={heroImage}
+                        alt="Tacos de Carnitas Premium"
+                        style={styles.image}
+                    />
+                </div>
             </div>
         </section>
     );
@@ -43,55 +60,68 @@ const Hero = () => {
 
 const styles = {
     hero: {
-        padding: '4rem 0',
+        minHeight: '100vh',
         backgroundColor: 'var(--bg-color)',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '120px 0',
         overflow: 'hidden',
-        position: 'relative',
     },
     container: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        gap: '4rem',
-        flexWrap: 'wrap',
+        gap: '6rem',
+        padding: '0 4rem',
+        maxWidth: '1800px',
+        margin: '0 auto',
+        width: '100%',
     },
     content: {
         flex: '1',
-        minWidth: '300px',
+        zIndex: 2,
     },
     subtitle: {
-        color: 'var(--primary)',
-        textTransform: 'uppercase',
-        letterSpacing: '3px',
-        fontSize: '0.9rem',
-        fontWeight: 700,
-        marginBottom: '1rem',
         display: 'block',
+        color: 'var(--primary)',
+        fontSize: '0.9rem',
+        fontWeight: 600,
+        letterSpacing: '0.4em',
+        marginBottom: '2.5rem',
+        textTransform: 'uppercase',
     },
     title: {
-        fontSize: '4rem',
-        lineHeight: 1.1,
-        marginBottom: '1.5rem',
-        color: 'var(--text-main)',
+        fontSize: 'clamp(3rem, 6vw, 6rem)',
+        fontFamily: 'var(--font-serif)',
+        lineHeight: '1.05',
+        color: 'var(--accent)',
+        margin: '0 0 2.5rem 0',
+        fontWeight: 400,
+        textTransform: 'uppercase',
+    },
+    titleAccent: {
+        color: 'var(--primary)',
     },
     description: {
         fontSize: '1.1rem',
+        lineHeight: '1.8',
         color: 'var(--text-muted)',
-        marginBottom: '2rem',
-        maxWidth: '500px',
+        marginBottom: '3.5rem',
+        maxWidth: '550px',
+        fontWeight: 300,
+        fontFamily: 'var(--font-sans)',
     },
     cta: {
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'var(--primary)',
-        color: 'white',
-        padding: '1.2rem 2.5rem',
-        borderRadius: '50px',
+        backgroundColor: 'var(--accent)',
+        color: 'var(--bg-color)',
+        border: 'none',
+        padding: '1.4rem 4rem',
+        fontSize: '0.85rem',
         fontWeight: 700,
-        fontSize: '1.1rem',
-        boxShadow: '0 4px 15px rgba(211, 84, 0, 0.3)',
+        letterSpacing: '0.3em',
+        cursor: 'pointer',
         transition: 'var(--transition)',
+        textTransform: 'uppercase',
     },
     imageContainer: {
         flex: '1',
@@ -99,24 +129,15 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        minWidth: '300px',
     },
     image: {
         width: '100%',
-        maxWidth: '500px',
-        borderRadius: '30px',
-        boxShadow: 'var(--shadow)',
-        zIndex: 2,
-        position: 'relative',
-    },
-    blob: {
-        position: 'absolute',
-        width: '120%',
-        height: '120%',
-        backgroundColor: 'rgba(211, 84, 0, 0.1)',
-        borderRadius: '50%',
-        filter: 'blur(50px)',
-        zIndex: 1,
+        maxWidth: '750px',
+        height: 'auto',
+        objectFit: 'cover',
+        border: '1px solid rgba(255, 255, 255, 0.05)',
+        borderRadius: 'clamp(2rem, 5vw, 4rem)',
+        transition: 'var(--transition)',
     }
 };
 
