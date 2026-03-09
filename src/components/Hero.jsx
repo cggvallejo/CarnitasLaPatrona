@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronDown, Sparkles } from 'lucide-react';
-import heroImg from '../assets/images/hero-meat.jpg';
+import heroImg from '../assets/images/hero_tacos.png';
 
 const Hero = () => {
     const { scrollY } = useScroll();
