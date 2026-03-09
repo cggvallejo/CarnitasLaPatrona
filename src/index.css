@@ -1,26 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Prata&display=swap');
 
 :root {
-  --primary: #D35400;
-  /* Logo Terracotta - used as accent */
-  --primary-light: #E67E22;
-  --secondary: #121212;
-  /* Rich Black */
-  --accent: #FFFFFF;
-  /* Pure White */
-  --bg-color: #0A0A0A;
-  /* Deep Charcoal/Pure Black */
-  --card-bg: #111111;
-  /* Subtle card dark grey */
-  --text-main: #FFFFFF;
-  --text-muted: #888888;
+  --primary: #2ECC71;
+  /* Radiant Emerald - Tropical freshness */
+  --primary-light: #1ABC9C;
+  /* Turquoise Mist */
+  --secondary: #0A110E;
+  /* Deep Jungle - Dark tropical background */
+  --accent: #F39C12;
+  /* Papaya Glow - Action highlight */
+  --bg-color: #0D1612;
+  /* Muted Jungle - Main body background */
+  --card-bg: #141E1A;
+  /* Tropical surface elevation */
+  --text-main: #E8F6F3;
+  /* Soft Mint White - High readability */
+  --text-muted: #7D8E87;
+  /* Muted jungle teal */
   --white: #FFFFFF;
-  --gold: #D4AF37;
-  --gold-light: #F9E79F;
-  --shadow: none;
-  /* No shadows for avant-garde minimalism */
-  --glass: rgba(10, 10, 10, 0.9);
-  --transition: all 0.5s cubic-bezier(0.2, 0, 0, 1);
+  --gold: #F39C12;
+  /* Repurposing gold for papaya accent */
+  --gold-light: #FAD7A0;
+  --shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  --glass: rgba(13, 22, 18, 0.85);
+  --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   --font-serif: 'Prata', serif;
   --font-sans: 'Inter', sans-serif;
 }
@@ -130,15 +133,15 @@ button {
 
 @keyframes pulse-soft {
   0% {
-    box-shadow: 0 0 0 0 rgba(211, 84, 0, 0.4);
+    box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.4);
   }
 
   70% {
-    box-shadow: 0 0 0 15px rgba(211, 84, 0, 0);
+    box-shadow: 0 0 0 15px rgba(243, 156, 18, 0);
   }
 
   100% {
-    box-shadow: 0 0 0 0 rgba(211, 84, 0, 0);
+    box-shadow: 0 0 0 0 rgba(243, 156, 18, 0);
   }
 }
 
@@ -183,14 +186,14 @@ button {
 
 /* Glassmorphism Classes */
 .glass {
-  background: rgba(211, 84, 0, 0.05);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(250, 215, 160, 0.1);
+  background: rgba(46, 204, 113, 0.03);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(26, 188, 156, 0.1);
 }
 
-.terracotta-glow {
-  box-shadow: 0 0 30px rgba(211, 84, 0, 0.2);
+.tropical-glow {
+  box-shadow: 0 0 30px rgba(243, 156, 18, 0.15);
 }
 
 /* Interacciones y Pulsos */
@@ -242,7 +245,7 @@ button {
   right: -10%;
   width: 60vw;
   height: 60vw;
-  background: rgba(211, 84, 0, 0.2);
+  background: rgba(26, 188, 156, 0.07);
   animation-duration: 30s;
   animation-delay: -5s;
 }
@@ -252,7 +255,7 @@ button {
   left: 60%;
   width: 40vw;
   height: 40vw;
-  background: rgba(39, 174, 96, 0.15);
+  background: rgba(243, 156, 18, 0.05);
   animation-duration: 35s;
   animation-delay: -10s;
 }

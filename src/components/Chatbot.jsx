@@ -342,7 +342,7 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        boxShadow: '0 10px 40px rgba(211, 84, 0, 0.4)',
+        boxShadow: '0 10px 40px rgba(243, 156, 18, 0.4)',
         border: 'none',
         cursor: 'pointer'
     },
