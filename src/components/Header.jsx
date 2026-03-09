@@ -8,32 +8,62 @@ const Header = () => {
     const { cartCount, setIsCartOpen } = useCart();
 
     return (
-        <header style={styles.header}>
+        <motion.header
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+                ...styles.header,
+                willChange: 'transform, opacity'
+            }}
+        >
             <div className="container" style={styles.container}>
-                <div style={styles.logoContainer}>
-                    <motion.img
-                        whileHover={{ rotate: 10 }}
-                        src={logo}
-                        alt="Carnitas El Patrón Logo"
-                        style={styles.logo}
-                    />
-                    <h1 style={styles.title}>EL PATRÓN</h1>
-                </div>
+                <motion.div
+                    style={styles.logoContainer}
+                    whileHover={{ scale: 1.02 }}
+                >
+                    <motion.h1 style={styles.title}>
+                        <span style={styles.brandMain}>EL PATRÓN</span>
+                        <div style={styles.brandLine}></div>
+                        <span style={styles.brandSub}>CARNITAS ARTESANALES</span>
+                    </motion.h1>
+                </motion.div>
 
                 <nav style={styles.nav}>
-                    <a href="#menu" style={styles.navLink}>Menú</a>
-                    <a href="#reviews" style={styles.navLink}>Reseñas</a>
+                    <motion.a
+                        href="#menu"
+                        className="nav-link"
+                        style={styles.navLink}
+                        whileHover={{ color: 'var(--accent)', opacity: 1, y: -3 }}
+                    >
+                        NUESTRO MENÚ
+                    </motion.a>
+                    <motion.a
+                        href="#reviews"
+                        className="nav-link"
+                        style={styles.navLink}
+                        whileHover={{ color: 'var(--accent)', opacity: 1, y: -3 }}
+                    >
+                        RESEÑAS
+                    </motion.a>
                     <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{
+                            scale: 1.1,
+                            boxShadow: '0 15px 30px rgba(232, 208, 159, 0.25)',
+                            borderColor: 'var(--accent)',
+                            backgroundColor: 'rgba(232, 208, 159, 0.1)'
+                        }}
+                        whileTap={{ scale: 0.9 }}
                         onClick={() => setIsCartOpen(true)}
                         style={styles.cartBtn}
+                        className="glass-premium"
                     >
-                        <ShoppingCart size={20} strokeWidth={2.5} />
+                        <ShoppingCart size={20} strokeWidth={1.5} />
                         {cartCount > 0 && (
                             <motion.span
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
+                                whileHover={{ scale: 1.2 }}
                                 style={styles.cartBadge}
                             >
                                 {cartCount}
@@ -42,7 +72,7 @@ const Header = () => {
                     </motion.button>
                 </nav>
             </div>
-        </header>
+        </motion.header>
     );
 };
 
@@ -52,77 +82,98 @@ const styles = {
         top: 0,
         left: 0,
         right: 0,
-        height: '90px',
-        backgroundColor: 'var(--glass)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+        height: '100px',
+        backgroundColor: 'rgba(5, 5, 5, 0.4)',
         zIndex: 1000,
         display: 'flex',
         alignItems: 'center',
-        backdropFilter: 'blur(20px)',
+        backdropFilter: 'blur(30px)',
+        borderBottom: '1px solid rgba(232, 208, 159, 0.05)',
+        transition: 'var(--transition)',
     },
     container: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '0 4rem',
-        maxWidth: '1800px',
+        maxWidth: '1600px',
         margin: '0 auto',
         width: '100%',
     },
     logoContainer: {
         display: 'flex',
-        alignItems: 'center',
-        gap: '1.5rem',
-    },
-    logo: {
-        height: '45px',
-        width: '45px',
-        objectFit: 'contain',
+        flexDirection: 'column',
     },
     title: {
-        fontSize: '1.4rem',
-        fontFamily: 'var(--font-serif)',
-        color: 'var(--accent)',
-        letterSpacing: '0.2em',
-        fontWeight: 400,
+        display: 'flex',
+        flexDirection: 'column',
         margin: 0,
+    },
+    brandMain: {
+        fontSize: '2rem',
+        fontFamily: 'var(--font-display)',
+        color: 'var(--accent)',
+        letterSpacing: '0.1em',
+        textTransform: 'uppercase',
+    },
+    brandLine: {
+        width: '100%',
+        height: '1px',
+        background: 'linear-gradient(90deg, transparent, var(--accent), transparent)',
+        margin: '0.1rem 0',
+        opacity: 0.4,
+    },
+    brandSub: {
+        fontSize: '0.65rem',
+        fontFamily: 'var(--font-sans)',
+        color: 'var(--primary)',
+        letterSpacing: '0.4em',
+        fontWeight: 700,
+        marginTop: '0.2rem',
     },
     nav: {
         display: 'flex',
         alignItems: 'center',
-        gap: '2.5rem',
+        gap: '4rem',
     },
     navLink: {
-        color: 'var(--text-muted)',
+        color: 'var(--text-main)',
         textDecoration: 'none',
-        fontSize: '0.85rem',
-        fontWeight: 400,
-        letterSpacing: '0.2em',
+        fontSize: '0.75rem',
+        fontWeight: 600,
+        letterSpacing: '0.3em',
         transition: 'var(--transition)',
-        textTransform: 'uppercase',
+        opacity: 0.7,
     },
     cartBtn: {
-        background: 'none',
-        border: 'none',
+        background: 'rgba(232, 208, 159, 0.05)',
+        border: '1px solid rgba(232, 208, 159, 0.2)',
         color: 'var(--accent)',
         cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',
-        gap: '1rem',
-        padding: '0.8rem',
+        justifyContent: 'center',
+        width: '55px',
+        height: '55px',
+        borderRadius: '50%',
         transition: 'var(--transition)',
         position: 'relative',
     },
     cartBadge: {
         position: 'absolute',
-        top: '0',
-        right: '0',
+        top: '-5px',
+        right: '-5px',
         background: 'var(--primary)',
         color: 'white',
         fontSize: '0.65rem',
-        padding: '2px 6px',
+        width: '22px',
+        height: '22px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         borderRadius: '50%',
-        fontWeight: 600,
+        fontWeight: 700,
+        boxShadow: '0 5px 15px rgba(179, 84, 30, 0.4)',
     },
 };
 

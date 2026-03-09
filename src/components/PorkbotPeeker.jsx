@@ -96,7 +96,7 @@ const PorkbotPeeker = () => {
                             objectFit: 'contain',
                             clipPath: 'circle(45% at 50% 50%)',
                             WebkitClipPath: 'circle(45% at 50% 50%)',
-                            filter: 'brightness(1.05) contrast(1.05)',
+                            filter: 'drop-shadow(0 0 15px rgba(232, 208, 159, 0.2)) brightness(1.1) contrast(1.1)',
                             opacity: 1
                         }}
                     />

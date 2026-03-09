@@ -120,24 +120,30 @@ const MercadoPagoBtn = ({ amount, onPaymentReady }) => {
 
 const styles = {
     container: {
-        marginTop: '1rem',
-        padding: '1.5rem',
-        backgroundColor: '#fff',
-        borderRadius: '20px',
-        minHeight: '450px',
-        boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.05)',
-        border: '1px solid #eee'
+        marginTop: '2rem',
+        padding: '3rem',
+        backgroundColor: 'rgba(232, 208, 159, 0.05)',
+        backdropFilter: 'blur(10px)',
+        borderRadius: '1rem',
+        minHeight: '500px',
+        border: '1px solid rgba(232, 208, 159, 0.15)',
+        boxShadow: '0 20px 50px rgba(0,0,0,0.3)',
     },
     loadingMsg: {
         textAlign: 'center',
-        paddingTop: '3rem',
-        color: 'var(--text-muted)'
+        paddingTop: '5rem',
+        color: 'var(--accent)',
+        fontFamily: 'var(--font-serif)',
+        fontStyle: 'italic',
+        fontSize: '1.2rem',
     },
     note: {
         display: 'block',
-        marginTop: '1rem',
-        fontSize: '0.8rem',
-        opacity: 0.7
+        marginTop: '2rem',
+        fontSize: '0.75rem',
+        color: 'var(--text-muted)',
+        opacity: 0.8,
+        letterSpacing: '0.05em'
     }
 }
 

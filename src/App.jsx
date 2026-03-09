@@ -58,9 +58,9 @@ function App() {
 
 const styles = {
   footer: {
-    padding: '8rem 0',
+    padding: '10rem 0',
     backgroundColor: 'var(--bg-color)',
-    borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+    borderTop: '1px solid rgba(232, 208, 159, 0.05)',
     color: 'var(--text-muted)',
     marginTop: '10rem',
   },
@@ -71,12 +71,12 @@ const styles = {
     padding: '0 2rem'
   },
   footerBrand: {
-    fontFamily: 'var(--font-serif)',
-    fontSize: '1.8rem',
+    fontFamily: 'var(--font-display)',
+    fontSize: '2.5rem',
     color: 'var(--accent)',
     textTransform: 'uppercase',
-    letterSpacing: '0.2em',
-    marginBottom: '2rem',
+    letterSpacing: '0.1em',
+    marginBottom: '2.5rem',
     display: 'block'
   }
 };

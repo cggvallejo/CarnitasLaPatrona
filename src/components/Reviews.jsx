@@ -78,7 +78,7 @@ const Reviews = () => {
                     </motion.h2>
                 </div>
 
-                <div style={styles.formCard}>
+                <div style={styles.formCard} className="glass-premium">
                     <AnimatePresence mode="wait">
                         {!isSubmitted ? (
                             <motion.form
@@ -103,58 +103,57 @@ const Reviews = () => {
                                         >
                                             <Star
                                                 size={42}
-                                                fill={(hover || rating) >= star ? 'var(--primary)' : 'transparent'}
-                                                color={(hover || rating) >= star ? 'var(--primary)' : 'rgba(255,255,255,0.2)'}
-                                                strokeWidth={1.5}
-                                                transition={{ duration: 0.2 }}
+                                                fill={(hover || rating) >= star ? 'var(--accent)' : 'transparent'}
+                                                color={(hover || rating) >= star ? 'var(--accent)' : 'rgba(255,255,255,0.1)'}
+                                                strokeWidth={1}
                                             />
                                         </motion.button>
                                     ))}
                                 </div>
 
                                 <textarea
-                                    placeholder="Cuéntanos tu experiencia..."
+                                    placeholder="Comparte tu experiencia con El Patrón..."
                                     value={comment}
                                     onChange={(e) => setComment(e.target.value)}
                                     style={styles.textarea}
                                 />
 
                                 <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
                                     disabled={rating === 0}
                                     style={{
                                         ...styles.submitBtn,
-                                        opacity: rating === 0 ? 0.5 : 1,
-                                        cursor: rating === 0 ? 'not-allowed' : 'pointer'
+                                        opacity: rating === 0 ? 0.3 : 1,
                                     }}
+                                    className="metallic-border"
                                 >
-                                    <Send size={18} />
-                                    ENVIAR RESEÑA
+                                    ENVIAR MI RESEÑA
                                 </motion.button>
                             </motion.form>
                         ) : (
+                            // ... success content (unchanged structure but will inherit styles)
                             <motion.div
                                 key="success"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
                                 style={styles.successContainer}
                             >
-                                <CheckCircle2 size={64} color="var(--primary)" style={{ marginBottom: '2rem' }} />
-                                <h3 style={styles.successTitle}>¡GRACIAS POR TU APOYO!</h3>
-                                <p style={styles.successText}>Tu opinión nos ayuda a seguir siendo "El Patrón".</p>
+                                <CheckCircle2 size={80} color="var(--accent)" strokeWidth={1} style={{ marginBottom: '2.5rem' }} />
+                                <h3 style={styles.successTitle}>¡GRACIAS POR SU VISITA!</h3>
+                                <p style={styles.successText}>Su paladar ha sido testigo de la tradición elevada a su máximo esplendor.</p>
 
                                 <div style={styles.shareGrid}>
-                                    <button onClick={() => handleShare('google')} style={styles.shareBtn}>
-                                        <MapPin size={20} />
+                                    <button onClick={() => handleShare('google')} style={styles.shareBtn} className="glass-premium">
+                                        <MapPin size={24} color="var(--primary)" />
                                         GOOGLE MAPS
                                     </button>
-                                    <button onClick={() => handleShare('instagram')} style={styles.shareBtn}>
-                                        <Instagram size={20} />
+                                    <button onClick={() => handleShare('instagram')} style={styles.shareBtn} className="glass-premium">
+                                        <Instagram size={24} color="var(--primary)" />
                                         INSTAGRAM
                                     </button>
-                                    <button onClick={() => handleShare('facebook')} style={styles.shareBtn}>
-                                        <Facebook size={20} />
+                                    <button onClick={() => handleShare('facebook')} style={styles.shareBtn} className="glass-premium">
+                                        <Facebook size={24} color="var(--primary)" />
                                         FACEBOOK
                                     </button>
                                 </div>
@@ -170,27 +169,68 @@ const Reviews = () => {
                 </div>
 
                 <div style={styles.reviewsList}>
-                    <h3 style={styles.listTitle}>OPINIONES DESTACADAS</h3>
-                    <div style={styles.listGrid}>
+                    <motion.h3
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        style={styles.listTitle}
+                    >
+                        PALABRAS DE NUESTROS COMENSALES
+                    </motion.h3>
+                    <motion.div
+                        style={styles.listGrid}
+                        variants={{
+                            hidden: { opacity: 0 },
+                            visible: {
+                                opacity: 1,
+                                transition: { staggerChildren: 0.15 }
+                            }
+                        }}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                    >
                         {allReviews.map((rev) => (
                             <motion.div
                                 key={rev.id}
-                                initial={{ opacity: 0, y: 10 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                style={styles.reviewItem}
+                                variants={{
+                                    hidden: { opacity: 0, y: 30, scale: 0.95 },
+                                    visible: { opacity: 1, y: 0, scale: 1 }
+                                }}
+                                whileHover={{
+                                    y: -10,
+                                    boxShadow: '0 30px 60px rgba(0,0,0,0.5)',
+                                    borderColor: 'rgba(232, 208, 159, 0.4)'
+                                }}
+                                style={{
+                                    ...styles.reviewItem,
+                                    willChange: 'transform, opacity, box-shadow'
+                                }}
+                                className="glass-premium"
                             >
                                 <div style={styles.itemHeader}>
                                     <div style={styles.itemStars}>
                                         {[...Array(5)].map((_, i) => (
-                                            <Star key={i} size={12} fill={i < rev.rating ? 'var(--primary)' : 'transparent'} color={i < rev.rating ? 'var(--primary)' : 'rgba(255,255,255,0.2)'} />
+                                            <motion.div
+                                                key={i}
+                                                initial={{ scale: 0 }}
+                                                animate={{ scale: 1 }}
+                                                transition={{ delay: 0.3 + (i * 0.1) }}
+                                            >
+                                                <Star
+                                                    size={14}
+                                                    fill={i < rev.rating ? 'var(--accent)' : 'transparent'}
+                                                    color={i < rev.rating ? 'var(--accent)' : 'rgba(255,255,255,0.1)'}
+                                                    strokeWidth={1}
+                                                />
+                                            </motion.div>
                                         ))}
                                     </div>
                                     <span style={styles.itemDate}>{rev.date}</span>
                                 </div>
-                                <p style={styles.itemText}>{rev.comment}</p>
+                                <p style={styles.itemText}>"{rev.comment}"</p>
                             </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>
@@ -199,11 +239,12 @@ const Reviews = () => {
 
 const styles = {
     section: {
-        padding: '10rem 0',
+        padding: '12rem 0',
         backgroundColor: 'var(--bg-color)',
+        borderTop: '1px solid rgba(179, 84, 30, 0.1)',
     },
     container: {
-        maxWidth: '1200px',
+        maxWidth: '1400px',
         margin: '0 auto',
         padding: '0 2rem',
         display: 'flex',
@@ -212,31 +253,31 @@ const styles = {
     },
     content: {
         textAlign: 'center',
-        marginBottom: '5rem',
+        marginBottom: '8rem',
+        maxWidth: '700px',
     },
     subtitle: {
         display: 'block',
         color: 'var(--primary)',
         fontSize: '0.85rem',
-        fontWeight: 600,
+        fontWeight: 700,
         letterSpacing: '0.4em',
         marginBottom: '2rem',
+        textTransform: 'uppercase',
+        fontFamily: 'var(--font-display)',
     },
     title: {
-        fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-        fontFamily: 'var(--font-serif)',
+        fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+        fontFamily: 'var(--font-display)',
         color: 'var(--accent)',
-        textTransform: 'uppercase',
         lineHeight: 1.1,
+        fontWeight: 400,
     },
     formCard: {
         width: '100%',
-        maxWidth: '700px',
-        background: 'rgba(255, 255, 255, 0.02)',
-        backdropFilter: 'blur(10px)',
-        border: '1px solid rgba(255, 255, 255, 0.05)',
+        maxWidth: '850px',
         borderRadius: '3rem',
-        padding: '4rem',
+        padding: '5rem 4rem',
         position: 'relative',
         overflow: 'hidden',
     },
@@ -244,43 +285,45 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '3rem',
+        gap: '4rem',
     },
     starsContainer: {
         display: 'flex',
-        gap: '1rem',
+        gap: '1.5rem',
     },
     starBtn: {
         background: 'none',
         border: 'none',
         padding: 0,
+        cursor: 'pointer',
     },
     textarea: {
         width: '100%',
-        height: '150px',
-        backgroundColor: 'rgba(255, 255, 255, 0.03)',
+        height: '180px',
+        backgroundColor: 'rgba(179, 84, 30, 0.05)',
         border: '1px solid rgba(255, 255, 255, 0.1)',
-        borderRadius: '1.5rem',
-        padding: '1.5rem',
-        color: 'var(--accent)',
-        fontSize: '1rem',
+        borderRadius: '2rem',
+        padding: '2rem',
+        color: 'var(--text-main)',
+        fontSize: '1.1rem',
         fontFamily: 'var(--font-sans)',
         outline: 'none',
         resize: 'none',
         transition: 'var(--transition)',
+        textAlign: 'center',
     },
     submitBtn: {
         backgroundColor: 'var(--accent)',
         color: 'var(--bg-color)',
         border: 'none',
-        padding: '1.4rem 4rem',
+        padding: '1.5rem 4.5rem',
         fontSize: '0.85rem',
-        fontWeight: 700,
+        fontWeight: 800,
         letterSpacing: '0.2em',
-        borderRadius: '1rem',
+        borderRadius: '0.8rem',
         display: 'flex',
         alignItems: 'center',
-        gap: '1rem',
+        gap: '1.5rem',
         transition: 'var(--transition)',
     },
     successContainer: {
@@ -290,90 +333,97 @@ const styles = {
         textAlign: 'center',
     },
     successTitle: {
-        fontSize: '1.8rem',
-        fontFamily: 'var(--font-serif)',
+        fontSize: '2rem',
+        fontFamily: 'var(--font-display)',
         color: 'var(--accent)',
         letterSpacing: '0.1em',
-        marginBottom: '1rem',
+        marginBottom: '1.5rem',
     },
     successText: {
         color: 'var(--text-muted)',
-        fontSize: '1rem',
-        marginBottom: '3rem',
+        fontSize: '1.1rem',
+        marginBottom: '4rem',
+        maxWidth: '450px',
     },
     shareGrid: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-        gap: '1.5rem',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+        gap: '2rem',
         width: '100%',
-        marginBottom: '3rem',
+        marginBottom: '4rem',
     },
     shareBtn: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '0.8rem',
-        padding: '2rem',
-        backgroundColor: 'rgba(255, 255, 255, 0.03)',
-        border: '1px solid rgba(255, 255, 255, 0.05)',
-        borderRadius: '2rem',
-        color: 'var(--accent)',
-        fontSize: '0.7rem',
-        fontWeight: 600,
-        letterSpacing: '0.1em',
+        gap: '1.2rem',
+        padding: '2.5rem',
+        backgroundColor: 'rgba(179, 84, 30, 0.03)',
+        border: '1px solid rgba(179, 84, 30, 0.15)',
+        borderRadius: '1.5rem',
+        color: 'var(--accent-light)',
+        fontSize: '0.75rem',
+        fontWeight: 700,
+        letterSpacing: '0.15em',
         cursor: 'pointer',
         transition: 'var(--transition)',
     },
     resetBtn: {
         background: 'none',
         border: 'none',
-        color: 'var(--text-muted)',
-        fontSize: '0.8rem',
+        color: 'var(--primary)',
+        fontSize: '0.85rem',
+        fontWeight: 600,
+        letterSpacing: '0.1em',
         textDecoration: 'underline',
         cursor: 'pointer',
     },
     reviewsList: {
         width: '100%',
-        marginTop: '6rem',
+        marginTop: '10rem',
     },
     listTitle: {
-        fontSize: '0.8rem',
-        letterSpacing: '0.2em',
+        fontSize: '1.2rem',
+        letterSpacing: '0.3em',
         color: 'var(--primary)',
         textAlign: 'center',
-        marginBottom: '3rem',
+        marginBottom: '5rem',
+        fontWeight: 400,
+        textTransform: 'uppercase',
+        fontFamily: 'var(--font-display)',
     },
     listGrid: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: '2rem',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gap: '3rem',
     },
     reviewItem: {
-        backgroundColor: 'rgba(255,255,255,0.02)',
-        border: '1px solid rgba(255,255,255,0.05)',
-        borderRadius: '1.5rem',
-        padding: '2rem',
+        borderRadius: '2rem',
+        padding: '3rem 2.5rem',
         transition: 'var(--transition)',
     },
     itemHeader: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: '1rem',
+        marginBottom: '2rem',
     },
     itemStars: {
         display: 'flex',
-        gap: '0.2rem',
+        gap: '0.4rem',
     },
     itemDate: {
-        fontSize: '0.7rem',
+        fontSize: '0.75rem',
         color: 'var(--text-muted)',
+        letterSpacing: '0.1em',
     },
     itemText: {
-        fontSize: '0.85rem',
-        color: 'var(--accent)',
-        lineHeight: 1.6,
+        fontSize: '1rem',
+        color: 'var(--accent-light)',
+        lineHeight: 1.8,
         margin: 0,
+        fontWeight: 300,
+        fontStyle: 'italic',
     }
 };
 
