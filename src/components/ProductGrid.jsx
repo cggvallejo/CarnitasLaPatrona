@@ -99,7 +99,7 @@ const styles = {
         position: 'absolute',
         top: '1.5rem',
         right: '1.5rem',
-        backgroundColor: 'rgba(10, 17, 14, 0.8)',
+        backgroundColor: 'rgba(15, 12, 11, 0.8)',
         backdropFilter: 'blur(10px)',
         color: 'var(--accent)',
         padding: '0.6rem 1.2rem',

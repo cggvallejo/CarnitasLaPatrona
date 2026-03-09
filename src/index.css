@@ -1,28 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Prata&display=swap');
 
 :root {
-  --primary: #2ECC71;
-  /* Radiant Emerald - Tropical freshness */
-  --primary-light: #1ABC9C;
-  /* Turquoise Mist */
-  --secondary: #0A110E;
-  /* Deep Jungle - Dark tropical background */
-  --accent: #F39C12;
-  /* Papaya Glow - Action highlight */
-  --bg-color: #0D1612;
-  /* Muted Jungle - Main body background */
-  --card-bg: #141E1A;
-  /* Tropical surface elevation */
-  --text-main: #E8F6F3;
-  /* Soft Mint White - High readability */
-  --text-muted: #7D8E87;
-  /* Muted jungle teal */
+  --primary: #B3541E;
+  /* Cobre Artesanal - Inspired by copper pots */
+  --primary-light: #D35400;
+  /* Vibrant Clay */
+  --secondary: #0F0C0B;
+  /* Ebonized Wood - Dark warm background */
+  --accent: #E8D5B5;
+  /* Crema Maíz - Soft contrast */
+  --bg-color: #0F0C0B;
+  /* Main background */
+  --card-bg: #1A1615;
+  /* Subtle elevation */
+  --text-main: #F2E7D5;
+  /* Off-white for readability */
+  --text-muted: #8B7E74;
+  /* Warm earth tones */
   --white: #FFFFFF;
-  --gold: #F39C12;
-  /* Repurposing gold for papaya accent */
-  --gold-light: #FAD7A0;
-  --shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-  --glass: rgba(13, 22, 18, 0.85);
+  --gold: #D4AF37;
+  --gold-light: #F9E79F;
+  --shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  --glass: rgba(15, 12, 11, 0.9);
   --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   --font-serif: 'Prata', serif;
   --font-sans: 'Inter', sans-serif;
@@ -133,15 +132,15 @@ button {
 
 @keyframes pulse-soft {
   0% {
-    box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.4);
+    box-shadow: 0 0 0 0 rgba(179, 84, 30, 0.4);
   }
 
   70% {
-    box-shadow: 0 0 0 15px rgba(243, 156, 18, 0);
+    box-shadow: 0 0 0 15px rgba(179, 84, 30, 0);
   }
 
   100% {
-    box-shadow: 0 0 0 0 rgba(243, 156, 18, 0);
+    box-shadow: 0 0 0 0 rgba(179, 84, 30, 0);
   }
 }
 
@@ -186,14 +185,14 @@ button {
 
 /* Glassmorphism Classes */
 .glass {
-  background: rgba(46, 204, 113, 0.03);
+  background: rgba(179, 84, 30, 0.03);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
-  border: 1px solid rgba(26, 188, 156, 0.1);
+  border: 1px solid rgba(232, 213, 181, 0.1);
 }
 
-.tropical-glow {
-  box-shadow: 0 0 30px rgba(243, 156, 18, 0.15);
+.copper-glow {
+  box-shadow: 0 0 30px rgba(179, 84, 30, 0.15);
 }
 
 /* Interacciones y Pulsos */
@@ -245,7 +244,7 @@ button {
   right: -10%;
   width: 60vw;
   height: 60vw;
-  background: rgba(26, 188, 156, 0.07);
+  background: rgba(179, 84, 30, 0.08);
   animation-duration: 30s;
   animation-delay: -5s;
 }
@@ -255,7 +254,7 @@ button {
   left: 60%;
   width: 40vw;
   height: 40vw;
-  background: rgba(243, 156, 18, 0.05);
+  background: rgba(232, 213, 181, 0.05);
   animation-duration: 35s;
   animation-delay: -10s;
 }
