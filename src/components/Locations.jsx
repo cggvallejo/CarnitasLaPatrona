@@ -33,9 +33,24 @@ const Locations = () => {
                             className="glass-premium"
                             whileHover={{ y: -10 }}
                         >
-                            <div style={{ ...styles.imagePlaceholder, backgroundImage: `url(${loc.image})` }}>
+                            <a href={loc.mapUrl} target="_blank" rel="noopener noreferrer" style={{ ...styles.imagePlaceholder, display: 'block' }}>
+                                {loc.useImageInsteadOfMap ? (
+                                    <img
+                                        src={loc.staticImage}
+                                        alt={`Fachada de ${loc.name}`}
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                    />
+                                ) : (
+                                    <iframe
+                                        src={loc.iframeUrl}
+                                        style={{ width: '100%', height: '100%', border: 0, pointerEvents: 'none' }}
+                                        loading="lazy"
+                                        referrerPolicy="no-referrer-when-downgrade"
+                                        title={`Mapa de ${loc.name}`}
+                                    />
+                                )}
                                 <div style={styles.imageOverlay}></div>
-                            </div>
+                            </a>
 
                             <div style={styles.cardContent}>
                                 <h3 style={styles.cardTitle}>{loc.name}</h3>
@@ -55,13 +70,16 @@ const Locations = () => {
                                     <span style={styles.infoText}>{loc.hours}</span>
                                 </div>
 
-                                <motion.button
+                                <motion.a
+                                    href={loc.mapUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    style={styles.actionBtn}
+                                    style={{ ...styles.actionBtn, display: 'block', textAlign: 'center', textDecoration: 'none' }}
                                 >
                                     CÓMO LLEGAR
-                                </motion.button>
+                                </motion.a>
                             </div>
                         </motion.div>
                     ))}

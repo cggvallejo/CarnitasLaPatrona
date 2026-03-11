@@ -21,10 +21,10 @@ const Chatbot = () => {
     const [currentOrder, setCurrentOrder] = useState({ items: [], location: '', payment: '' });
 
     const menuOptions = [
-        { label: "Tacos (x3) - $95", id: 1 },         // Tacos de Carnitas
-        { label: "Torta Carnitas - $85", id: 4 },     // Torta de Carnitas
-        { label: "1kg Surtida - $420", id: 3 },       // 1kg de Surtida
-        { label: "Refresco 600ml - $25", id: 10 }     // Refresco Botella 600ml
+        { label: "Taco de Maciza - $35", id: 100 },     
+        { label: "Torta de Surtido - $85", id: 113 },   
+        { label: "1kg de Chamorro - $450", id: 131 },  
+        { label: "Refrescos - $25", id: 10 }          
     ];
 
     const getOrderTotal = () => currentOrder.items.reduce((sum, item) => sum + item.price, 0);
