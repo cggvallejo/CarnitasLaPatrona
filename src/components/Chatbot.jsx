@@ -3,7 +3,7 @@ import { useCart } from '../context/CartContext';
 import { products } from '../data/products';
 import { MessageCircle, X, CreditCard, Banknote, SmartphoneNfc, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import MercadoPagoBtn from './MercadoPagoBtn';
+import CheckoutProBtn from './CheckoutProBtn';
 import porkbotImg from '../assets/images/porkbot.png';
 import { locationsData, getClosestBranch } from '../data/locations';
 
@@ -20,20 +20,78 @@ const Chatbot = () => {
     const [orderState, setOrderState] = useState('MENU'); // MENU, LOCATION, PAYMENT, CONFIRM
     const [currentOrder, setCurrentOrder] = useState({ items: [], location: '', payment: '' });
 
+    // Menú completo organizado por categorías
     const menuOptions = [
-        { label: "Taco de Maciza - $35", id: 100 },     
-        { label: "Torta de Surtido - $85", id: 113 },   
-        { label: "1kg de Chamorro - $450", id: 131 },  
-        { label: "Refrescos - $25", id: 10 }          
+        // TACOS ($35)
+        { label: "🌮 Taco de Maciza - $35", id: 100, price: 35 },
+        { label: "🌮 Taco de Cuero - $35", id: 104, price: 35 },
+        { label: "🌮 Taco de Buche - $35", id: 108, price: 35 },
+        { label: "🌮 Taco de Surtido - $35", id: 112, price: 35 },
+        { label: "🌮 Taco de Cachete - $35", id: 116, price: 35 },
+        { label: "🌮 Taco de Trompa - $35", id: 120, price: 35 },
+        { label: "🌮 Taco de Oreja - $35", id: 124, price: 35 },
+        { label: "🌮 Taco de Chamorro - $35", id: 128, price: 35 },
+        // TORTAS ($85)
+        { label: "🥖 Torta de Maciza - $85", id: 101, price: 85 },
+        { label: "🥖 Torta de Cuero - $85", id: 105, price: 85 },
+        { label: "🥖 Torta de Buche - $85", id: 109, price: 85 },
+        { label: "🥖 Torta Surtida - $85", id: 113, price: 85 },
+        { label: "🥖 Torta de Cachete - $85", id: 117, price: 85 },
+        { label: "🥖 Torta de Trompa - $85", id: 121, price: 85 },
+        { label: "🥖 Torta de Oreja - $85", id: 125, price: 85 },
+        { label: "🥖 Torta de Chamorro - $85", id: 129, price: 85 },
+        // GORDITAS ($55)
+        { label: "🫓 Gordita de Maciza - $55", id: 102, price: 55 },
+        { label: "🫓 Gordita de Cuero - $55", id: 106, price: 55 },
+        { label: "🫓 Gordita de Surtido - $55", id: 114, price: 55 },
+        { label: "🫓 Gordita de Chamorro - $55", id: 130, price: 55 },
+        // KILOS ($450)
+        { label: "⚖️ 1kg Maciza - $450", id: 103, price: 450 },
+        { label: "⚖️ 1kg Chamorro - $450", id: 131, price: 450 },
+        { label: "⚖️ 1kg Surtido - $450", id: 115, price: 450 },
+        // BEBIDAS Y COMPLEMENTOS
+        { label: "🥤 Refresco - $25", id: 10, price: 25 },
+        { label: "🍷 Agua Natural 500ml - $30", id: 11, price: 30 },
+        { label: "🌶️ Salsa Especial 250ml - $35", id: 6, price: 35 },
     ];
+
+    // Categorías para el menú del chatbot
+    const menuCategories = [
+        { label: "🌮 Ver Tacos ($35)", category: 'Tacos' },
+        { label: "🥖 Ver Tortas ($85)", category: 'Tortas' },
+        { label: "🫓 Ver Gorditas ($55)", category: 'Gorditas' },
+        { label: "⚖️ Ver Kilos ($450)", category: 'Kilos' },
+        { label: "🥤 Ver Bebidas", category: 'Bebidas' },
+    ];
+
+    const [menuFilter, setMenuFilter] = useState(null); // null = mostrar categorias, 'Tacos'/etc = filtrar
 
     const getOrderTotal = () => currentOrder.items.reduce((sum, item) => sum + item.price, 0);
 
+    const getFilteredMenuOptions = () => {
+        if (!menuFilter) return [];
+        const catMap = {
+            'Tacos': menuOptions.filter(o => o.label.startsWith('🌮')),
+            'Tortas': menuOptions.filter(o => o.label.startsWith('🥖')),
+            'Gorditas': menuOptions.filter(o => o.label.startsWith('🫓')),
+            'Kilos': menuOptions.filter(o => o.label.startsWith('⚖️')),
+            'Bebidas': menuOptions.filter(o => o.label.startsWith('🥤') || o.label.startsWith('🍷') || o.label.startsWith('🌶️')),
+        };
+        return catMap[menuFilter] || [];
+    };
+
     const getQuickReplies = () => {
         if (orderState === 'MENU') {
+            if (menuFilter) {
+                return [
+                    ...getFilteredMenuOptions().map(o => o.label),
+                    '↩ Ver categorias',
+                    'Total y Pagar'
+                ];
+            }
             return [
-                ...menuOptions.map(o => o.label),
-                "Total y Pagar"
+                ...menuCategories.map(c => c.label),
+                'Total y Pagar'
             ];
         }
         if (orderState === 'LOCATION') {
@@ -69,14 +127,36 @@ const Chatbot = () => {
         addMessage('user', replyText);
 
         setTimeout(() => {
-            if (orderState === 'MENU') {
+        if (orderState === 'MENU') {
                 if (replyText === 'Total y Pagar') {
                     if (currentOrder.items.length === 0) {
-                        addMessage('bot', '¡Tu pedido está vacío! ¿Qué te preparamos?');
+                        addMessage('bot', '¡Tu pedido está vacío! Elige una categoría para ver el menú.');
                     } else {
                         setOrderState('LOCATION');
                         addMessage('bot', `Llevas $${getOrderTotal().toFixed(2)}. ¡Excelente! ¿Para comer aquí o te lo preparamos para llevar?`);
                     }
+                    return;
+                }
+
+                if (replyText === '↩ Ver categorias') {
+                    setMenuFilter(null);
+                    addMessage('bot', '¿Qué categoría quieres ver?');
+                    return;
+                }
+
+                // Ver si es una categoría
+                const catOption = menuCategories.find(c => c.label === replyText);
+                if (catOption) {
+                    setMenuFilter(catOption.category);
+                    const items = menuOptions.filter(o => {
+                        const catMap = {
+                            'Tacos': '🌮', 'Tortas': '🥖', 'Gorditas': '🫓', 'Kilos': '⚖️'
+                        };
+                        return catOption.category === 'Bebidas'
+                            ? (o.label.startsWith('🥤') || o.label.startsWith('🍷') || o.label.startsWith('🌶️'))
+                            : o.label.startsWith(catMap[catOption.category] || '');
+                    });
+                    addMessage('bot', `¡Aquí están nuestros ${catOption.category}! ¿Cuál se te antoja? 🐷`);
                     return;
                 }
 
@@ -86,18 +166,10 @@ const Chatbot = () => {
                     const prodDb = products.find(p => p.id === option.id);
                     if (prodDb) {
                         addToCart(prodDb, false);
-                        setCurrentOrder(prevOrder => {
-                            const newItems = [...prevOrder.items, { name: prodDb.name, price: prodDb.price }];
-                            const newTotal = newItems.reduce((sum, item) => sum + item.price, 0);
-                            addMessage('bot', `¡Agregado ${prodDb.name}! Subtotal: $${newTotal.toFixed(2)}. ¿Te apetece algo más?`);
-                            return { ...prevOrder, items: newItems };
-                        });
-                    } else {
-                        addMessage('bot', '¡Anotado! 👍 ¿Te agrego algo más o ya terminamos el pedido?');
-                        setCurrentOrder(prevOrder => ({
-                            ...prevOrder,
-                            items: [...prevOrder.items, { name: replyText, price: 0 }]
-                        }));
+                        const newItems = [...currentOrder.items, { name: prodDb.name, price: prodDb.price }];
+                        const newTotal = newItems.reduce((sum, item) => sum + item.price, 0);
+                        setCurrentOrder(prevOrder => ({ ...prevOrder, items: newItems }));
+                        addMessage('bot', `¡Agregado ${prodDb.name}! Lleva $${newTotal.toFixed(2)}. ¿Agregás algo más o "Total y Pagar"?`);
                     }
                 }
             }
@@ -278,15 +350,10 @@ const Chatbot = () => {
                                 </motion.div>
                             ))}
                             {orderState === 'MP_CHECKOUT' && (
-                                <div style={{ width: '100%', marginTop: '1rem', animation: 'fadeIn 0.5s ease-in-out forwards' }}>
-                                    <MercadoPagoBtn
-                                        amount={getOrderTotal()}
-                                        onPaymentReady={(data) => {
-                                            console.log("Chatbot payment success:", data);
-                                            // Optional: Move to CONFIRM state or automatically complete
-                                            setOrderState('CONFIRM');
-                                            addMessage('bot', '✅ ¡Pago recibido oink-reíblemente! Ahora, ¿enviamos los detalles de tu orden a WhatsApp?');
-                                        }}
+                                <div style={{ width: '100%', marginTop: '0.5rem', animation: 'fadeIn 0.5s ease-in-out forwards' }}>
+                                    <CheckoutProBtn
+                                        cart={currentOrder.items.map(i => ({ name: i.name, price: i.price, quantity: 1 }))}
+                                        total={getOrderTotal()}
                                     />
                                 </div>
                             )}
@@ -436,10 +503,13 @@ const styles = {
     quickRepliesContainer: {
         display: 'flex',
         flexDirection: 'column',
-        gap: '0.8rem',
-        padding: '1.5rem',
+        gap: '0.5rem',
+        padding: '0.8rem 1.2rem',
         borderTop: '1px solid rgba(232, 208, 159, 0.1)',
-        backgroundColor: 'rgba(232, 208, 159, 0.02)'
+        backgroundColor: 'rgba(232, 208, 159, 0.02)',
+        maxHeight: '220px',
+        overflowY: 'auto',
+        scrollbarWidth: 'none',
     },
     quickReplyBtn: {
         backgroundColor: 'rgba(232, 208, 159, 0.05)',
