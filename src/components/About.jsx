@@ -40,7 +40,7 @@ const About = () => {
 
 const styles = {
     about: {
-        padding: '0 0 8rem 0',
+        padding: '10rem 0',
         backgroundColor: 'var(--bg-color)',
         position: 'relative',
         display: 'flex',

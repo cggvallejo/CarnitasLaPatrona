@@ -64,7 +64,7 @@ const Hero = () => {
                                 El Arte de la
                             </motion.span>
                         </div>
-                        <div style={{ overflow: 'hidden', marginTop: '-1rem' }}>
+                        <div style={{ overflow: 'hidden' }}>
                             <motion.span
                                 variants={itemVariants}
                                 style={{ ...styles.titleHighlight, display: 'inline-block' }}
@@ -174,13 +174,13 @@ const Hero = () => {
 
 const styles = {
     hero: {
-        height: '100vh',
+        height: '110vh',
         display: 'flex',
         alignItems: 'center',
         position: 'relative',
         backgroundColor: 'var(--bg-color)',
         overflow: 'hidden',
-        paddingTop: '80px',
+        paddingTop: '100px',
     },
     dynamicBg: {
         position: 'absolute',
@@ -213,7 +213,7 @@ const styles = {
     },
     title: {
         fontSize: 'clamp(4rem, 10vw, 8.5rem)',
-        lineHeight: '0.85',
+        lineHeight: '1.25',
         marginBottom: '3rem',
         letterSpacing: '-0.04em',
         fontFamily: 'var(--font-display)',
