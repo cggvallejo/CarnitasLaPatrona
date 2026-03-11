@@ -174,13 +174,13 @@ const Hero = () => {
 
 const styles = {
     hero: {
-        height: '110vh',
+        height: '100vh',
         display: 'flex',
         alignItems: 'center',
         position: 'relative',
         backgroundColor: 'var(--bg-color)',
         overflow: 'hidden',
-        paddingTop: '100px',
+        paddingTop: '80px',
     },
     dynamicBg: {
         position: 'absolute',
