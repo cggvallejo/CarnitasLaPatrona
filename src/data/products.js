@@ -1,14 +1,26 @@
 import heroTacos from '../assets/images/hero_tacos.png';
-import kiloMaciza from '../assets/images/kilo_maciza.png';
 import tacoMaciza from '../assets/images/taco_maciza.png';
 import tacoSurtida from '../assets/images/taco_surtida.png';
-import bebidasImg from '../assets/images/bebidas.png';
-import salsaEspecial from '../assets/images/salsa_especial.png';
+import tacoCuero from '../assets/images/taco_cuero.png';
+import tacoBuche from '../assets/images/taco_buche.png';
+import tacoCachete from '../assets/images/taco_cachete.png';
+import tacoTrompa from '../assets/images/taco_trompa.png';
+import tacoOreja from '../assets/images/taco_oreja.png';
+import tacoChamorro from '../assets/images/taco_chamorro.png';
 
-import heroTacos from '../assets/images/hero_tacos.png';
 import kiloMaciza from '../assets/images/kilo_maciza.png';
-import gorditaImg from '../assets/images/taca_surtida.png'; // Fallback
-import tortaImg from '../assets/images/hero_tacos.png'; // Fallback
+import gorditaImg from '../assets/images/gordita_carnitas.png';
+import gorditaCuero from '../assets/images/gordita_cuero.png';
+
+import tortaImg from '../assets/images/torta_carnitas.png';
+import tortaCuero from '../assets/images/torta_cuero.png';
+import tortaBuche from '../assets/images/torta_buche.png';
+import tortaSurtida from '../assets/images/torta_surtida.png';
+import tortaCachete from '../assets/images/torta_cachete.png';
+import tortaTrompa from '../assets/images/torta_trompa.png';
+import tortaOreja from '../assets/images/torta_oreja.png';
+import tortaChamorro from '../assets/images/torta_chamorro.png';
+
 import bebidasImg from '../assets/images/bebidas.png';
 import salsaEspecial from '../assets/images/salsa_especial.png';
 
@@ -27,6 +39,20 @@ const cortes = [
 const generatedProducts = [];
 let initialId = 100;
 
+const tacoImagesMap = {
+    maciza: tacoMaciza, cuero: tacoCuero, buche: tacoBuche, surtido: tacoSurtida,
+    cachete: tacoCachete, trompa: tacoTrompa, oreja: tacoOreja, chamorro: tacoChamorro
+};
+
+const tortaImagesMap = {
+    maciza: tortaImg, cuero: tortaCuero, buche: tortaBuche, surtido: tortaSurtida,
+    cachete: tortaCachete, trompa: tortaTrompa, oreja: tortaOreja, chamorro: tortaChamorro
+};
+
+const gorditaImagesMap = {
+    cuero: gorditaCuero
+};
+
 // Generar combinaciones de platillos por cada corte
 cortes.forEach(corte => {
     generatedProducts.push({
@@ -34,16 +60,16 @@ cortes.forEach(corte => {
         name: `Taco de ${corte.name}`,
         description: `Taco individual de ${corte.desc}`,
         price: 35.00,
-        image: heroTacos,
+        image: tacoImagesMap[corte.id] || heroTacos,
         category: 'Tacos'
     });
-    
+
     generatedProducts.push({
         id: initialId++,
         name: `Torta de ${corte.name}`,
         description: `Bolillo crujiente relleno de ${corte.name}, frijoles y más.`,
         price: 85.00,
-        image: tortaImg,
+        image: tortaImagesMap[corte.id] || tortaImg,
         category: 'Tortas'
     });
 
@@ -52,7 +78,7 @@ cortes.forEach(corte => {
         name: `Gordita de ${corte.name}`,
         description: `Masa frita abierta y rellena de ${corte.name} con guarnición.`,
         price: 55.00,
-        image: gorditaImg,
+        image: gorditaImagesMap[corte.id] || gorditaImg,
         category: 'Gorditas'
     });
 
