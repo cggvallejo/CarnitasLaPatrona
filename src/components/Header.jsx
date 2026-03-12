@@ -26,7 +26,7 @@ const Header = () => {
                 <div className="container" style={styles.container}>
                     {/* Logo */}
                     <motion.div style={styles.logoContainer} whileHover={{ scale: 1.05 }}>
-                        <img src={logo} alt="Carnitas El Patrón" style={styles.logoImg} />
+                        <img src={logo} alt="Carnitas La Patrona" style={styles.logoImg} />
                     </motion.div>
 
                     {/* Nav escritorio */}
