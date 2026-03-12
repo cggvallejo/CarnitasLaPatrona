@@ -1,31 +1,44 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const CheckoutProBtn = ({ cart, total }) => {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [payUrl, setPayUrl] = useState(null);
 
-    const handleCheckoutPro = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-            const res = await fetch(`${apiUrl}/create_preference`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ cart, total }),
-            });
-            const data = await res.json();
-            if (data.init_point) {
-                window.location.href = data.init_point;
-            } else {
-                setError('No se pudo generar el link de pago. Intenta de nuevo.');
+    useEffect(() => {
+        let isMounted = true;
+        const fetchPreference = async () => {
+            setLoading(true);
+            try {
+                const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+                const res = await fetch(`${apiUrl}/create_preference`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ cart, total }),
+                });
+                const data = await res.json();
+                if (isMounted) {
+                    if (data.init_point) {
+                        setPayUrl(data.init_point);
+                    } else {
+                        setError('No se pudo generar el link de pago. Intenta de nuevo.');
+                    }
+                }
+            } catch (e) {
+                if (isMounted) setError('Error de conexión con el backend.');
+            } finally {
+                if (isMounted) setLoading(false);
             }
-        } catch (e) {
-            setError('Error de conexión con el servidor de pagos.');
-        } finally {
+        };
+
+        if (cart && cart.length > 0) {
+            fetchPreference();
+        } else {
             setLoading(false);
         }
-    };
+
+        return () => { isMounted = false; };
+    }, [cart, total]);
 
     return (
         <div style={styles.wrapper}>
@@ -54,15 +67,26 @@ const CheckoutProBtn = ({ cart, total }) => {
 
             {error && <p style={styles.error}>{error}</p>}
 
-            <button
-                onClick={handleCheckoutPro}
-                disabled={loading}
-                style={{ ...styles.btn, opacity: loading ? 0.7 : 1 }}
-            >
-                {loading ? '⏳ Conectando...' : '🔒 Pagar con Mercado Pago'}
-            </button>
+            {loading ? (
+                <button disabled style={{ ...styles.btn, opacity: 0.7, cursor: 'wait' }}>
+                    ⏳ Conectando Módulo...
+                </button>
+            ) : payUrl ? (
+                <a
+                    href={payUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ ...styles.btn, display: 'inline-block', textDecoration: 'none', boxSizing: 'border-box' }}
+                >
+                    🚀 Abrir Pestaña de Pago
+                </a>
+            ) : (
+                <button disabled style={{ ...styles.btn, opacity: 0.5, cursor: 'not-allowed' }}>
+                    ❌ No disponible
+                </button>
+            )}
 
-            <p style={styles.note}>Serás redirigido al portal seguro de pago.</p>
+            <p style={styles.note}>Serás redirigido al portal seguro de pago en una pestaña nueva.</p>
         </div>
     );
 };

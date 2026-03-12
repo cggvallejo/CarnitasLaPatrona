@@ -55,27 +55,35 @@ const Hero = () => {
                     </motion.div>
 
                     <motion.h1 style={styles.title} variants={containerVariants}>
-                        <div>
-                            <motion.span
-                                variants={itemVariants}
-                                className="metallic-text"
-                                style={{ display: 'inline-block' }}
-                            >
-                                El Arte de la
-                            </motion.span>
-                        </div>
-                        <div>
-                            <motion.span
-                                variants={itemVariants}
-                                style={{ ...styles.titleHighlight, display: 'inline-block' }}
-                            >
-                                Lenta Cocción
-                            </motion.span>
-                        </div>
+                        <motion.span
+                            variants={itemVariants}
+                            style={{ 
+                                display: 'block', 
+                                fontSize: 'clamp(2rem, 5vw, 4rem)', 
+                                fontWeight: 300,
+                                letterSpacing: '-0.02em',
+                                opacity: 0.9,
+                                marginBottom: '-0.1em'
+                            }}
+                        >
+                            El Arte de la
+                        </motion.span>
+                        <motion.span
+                            variants={itemVariants}
+                            className="metallic-text"
+                            style={{ 
+                                display: 'block', 
+                                fontStyle: 'italic', 
+                                fontWeight: 900,
+                                lineHeight: '1.1'
+                            }}
+                        >
+                            Lenta Cocción
+                        </motion.span>
                     </motion.h1>
 
                     <motion.p variants={itemVariants} style={styles.description}>
-                        Elevamos la tradición a un nivel gourmet inolvidable. Cada bocado de nuestras carnitas cuenta una historia de paciencia, fuego y herencia.
+                        Las auténticas carnitas michoacanas. Jugosas, suaves por dentro y doraditas por fuera. Cada taco es una bomba de sabor preparada ahí mismo con nuestra receta de siempre.
                     </motion.p>
 
                     <motion.div className="hero-cta-group" variants={itemVariants} style={styles.ctaGroup}>
@@ -126,7 +134,7 @@ const Hero = () => {
                     >
                         <motion.img
                             src={heroImg}
-                            alt="Carnitas Gourmet"
+                            alt="Carnitas Recién Salidas"
                             style={{
                                 ...styles.image,
                                 willChange: 'transform'
@@ -213,7 +221,7 @@ const styles = {
     },
     title: {
         fontSize: 'clamp(4rem, 10vw, 8.5rem)',
-        lineHeight: '1.4',
+        lineHeight: '1.05',
         marginBottom: '3rem',
         letterSpacing: '-0.04em',
         fontFamily: 'var(--font-display)',

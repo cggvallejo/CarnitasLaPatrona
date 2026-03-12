@@ -106,7 +106,7 @@ const Chatbot = () => {
             }
             return [
                 ...menuCategories.map(c => c.label),
-                'Total y Pagar'
+                'Total a pagar'
             ];
         }
         if (orderState === 'LOCATION') {
@@ -143,7 +143,7 @@ const Chatbot = () => {
 
         setTimeout(() => {
         if (orderState === 'MENU') {
-                if (replyText === 'Total y Pagar') {
+                if (replyText === 'Total a pagar') {
                     if (currentOrder.items.length === 0) {
                         addMessage('bot', '¡Tu pedido está vacío! Elige una categoría para ver el menú.');
                     } else {

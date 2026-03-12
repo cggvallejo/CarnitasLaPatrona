@@ -22,7 +22,24 @@ import tortaOreja from '../assets/images/torta_oreja.png';
 import tortaChamorro from '../assets/images/torta_chamorro.png';
 
 import bebidasImg from '../assets/images/bebidas.png';
+import imgMexicanCoke from '../assets/images/mexican_coke.png';
+import imgJarritos from '../assets/images/jarritos.png';
+import imgAguasFrescas from '../assets/images/aguas_frescas.png';
 import salsaEspecial from '../assets/images/salsa_especial.png';
+
+import userSidral from '../assets/images/user_sidral.png';
+import userCoco from '../assets/images/user_coco.png';
+import userJamaica from '../assets/images/user_jamaica.png';
+import userBoing from '../assets/images/user_boing.png';
+import userCocaCola from '../assets/images/user_coca_cola.png';
+import userHorchata from '../assets/images/user_horchata.png';
+import userJarritoMandarina from '../assets/images/user_jarrito_mandarina.png';
+import userJarritoTamarindo from '../assets/images/user_jarrito_tamarindo.png';
+import userManzanitaSol from '../assets/images/user_manzanita_sol.png';
+import userPepsi from '../assets/images/user_pepsi.png';
+import userSalsaRoja from '../assets/images/user_salsa_roja.png';
+import userSalsaVerde from '../assets/images/user_salsa_verde.png';
+import userSprite from '../assets/images/user_sprite.png';
 
 // Cortes base del Menú de Lona
 const cortes = [
@@ -95,25 +112,33 @@ cortes.forEach(corte => {
 export const products = [
     ...generatedProducts,
     // ── Refrescos (populares en Cancún, Q.Roo) ──────────────────────
-    { id: 10,  name: 'Coca-Cola',             description: 'La clásica Coca-Cola bien fría. La #1 en México.',                    price: 25.00, image: bebidasImg, category: 'Bebidas' },
-    { id: 200, name: 'Pepsi',                 description: 'Pepsi fría y refrescante para acompañar tu pedido.',                   price: 25.00, image: bebidasImg, category: 'Bebidas' },
-    { id: 201, name: 'Sprite',                description: 'Sprite limón‑lima, perfecta para el calor caribeño.',                  price: 25.00, image: bebidasImg, category: 'Bebidas' },
-    { id: 202, name: 'Jarritos Tamarindo',    description: 'Jarritos de tamarindo, favorito del sureste mexicano.',                price: 25.00, image: bebidasImg, category: 'Bebidas' },
-    { id: 203, name: 'Jarritos Mandarina',    description: 'Jarritos de mandarina, el sabor tropical de Quintana Roo.',           price: 25.00, image: bebidasImg, category: 'Bebidas' },
-    { id: 204, name: 'Manzanita Sol',         description: 'Refresco de manzana, muy popular en el Caribe mexicano.',             price: 25.00, image: bebidasImg, category: 'Bebidas' },
-    { id: 205, name: 'Sidral Mundet',         description: 'El sidral de manzana más clásico de México.',                         price: 25.00, image: bebidasImg, category: 'Bebidas' },
-    { id: 206, name: 'Boing Guayaba',         description: 'Jugo Boing de guayaba, popular en el sureste y Caribe.',              price: 25.00, image: bebidasImg, category: 'Bebidas' },
-    { id: 207, name: 'Agua de Coco Natural',  description: 'Agua de coco 100% natural, típica de la zona costera de Cancún.',     price: 30.00, image: bebidasImg, category: 'Bebidas' },
+    { id: 10,  name: 'Coca-Cola',             description: 'La clásica Coca-Cola bien fría. La #1 en México.',                    price: 25.00, image: userCocaCola, category: 'Bebidas' },
+    { id: 200, name: 'Pepsi',                 description: 'Pepsi fría y refrescante para acompañar tu pedido.',                   price: 25.00, image: userPepsi, category: 'Bebidas' },
+    { id: 201, name: 'Sprite',                description: 'Sprite limón‑lima, perfecta para el calor caribeño.',                  price: 25.00, image: userSprite, category: 'Bebidas' },
+    { id: 202, name: 'Jarritos Tamarindo',    description: 'Jarritos de tamarindo, favorito del sureste mexicano.',                price: 25.00, image: userJarritoTamarindo, category: 'Bebidas' },
+    { id: 203, name: 'Jarritos Mandarina',    description: 'Jarritos de mandarina, el sabor tropical de Quintana Roo.',           price: 25.00, image: userJarritoMandarina, category: 'Bebidas' },
+    { id: 204, name: 'Manzanita Sol',         description: 'Refresco de manzana, muy popular en el Caribe mexicano.',             price: 25.00, image: userManzanitaSol, category: 'Bebidas' },
+    { id: 205, name: 'Sidral Mundet',         description: 'El sidral de manzana más clásico de México.',                         price: 25.00, image: userSidral, category: 'Bebidas' },
+    { id: 206, name: 'Boing de Guayaba o Mango', description: 'Jugo Boing refrescante sabor guayaba o mango.',              price: 25.00, image: userBoing, category: 'Bebidas' },
+    { id: 207, name: 'Agua de Coco Natural',  description: 'Agua de coco 100% natural, típica de la zona costera de Cancún.',     price: 30.00, image: userCoco, category: 'Bebidas' },
     // ── Aguas naturales ──────────────────────────────────────────────
-    { id: 11,  name: 'Agua de Horchata (500ml)', description: 'Horchata casera con canela, bien fría.',                           price: 30.00, image: 'https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&q=80&w=400', category: 'Bebidas' },
-    { id: 208, name: 'Agua de Jamaica (500ml)',  description: 'Jamaica natural con toque de limón, recién preparada.',             price: 30.00, image: 'https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&q=80&w=400', category: 'Bebidas' },
+    { id: 11,  name: 'Agua de Horchata (500ml)', description: 'Horchata casera con canela, bien fría.',                           price: 30.00, image: userHorchata, category: 'Bebidas' },
+    { id: 208, name: 'Agua de Jamaica (500ml)',  description: 'Jamaica natural con toque de limón, recién preparada.',             price: 30.00, image: userJamaica, category: 'Bebidas' },
     // ── Complementos ─────────────────────────────────────────────────
     {
         id: 6,
-        name: 'Salsa Especial (250ml)',
-        description: 'Nuestra famosa salsa verde de habanero y aguacate.',
+        name: 'Salsa Roja Especial (250ml)',
+        description: 'Auténtica salsa de chile de árbol asado y limón.',
         price: 35.00,
-        image: salsaEspecial,
+        image: userSalsaRoja,
+        category: 'Complementos'
+    },
+    {
+        id: 300,
+        name: 'Salsa Verde Clásica (250ml)',
+        description: 'Salsa verde de tomatillo fresco y un toque de habanero.',
+        price: 35.00,
+        image: userSalsaVerde,
         category: 'Complementos'
     }
 ];

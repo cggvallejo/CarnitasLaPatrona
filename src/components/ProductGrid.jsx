@@ -37,9 +37,9 @@ const ProductGrid = () => {
                     transition={{ duration: 1.2 }}
                 >
                     <span style={styles.subtitle}>MENÚ PATRONA</span>
-                    <h2 style={styles.title}>Selección Gourmet</h2>
+                    <h2 style={styles.title}>Nuestra Especialidad</h2>
                     <p style={styles.headerText}>
-                        Cada plato es una obra maestra de la cocina tradicional, elevada con ingredientes de la más alta calidad y un proceso artesanal inigualable.
+                        Cada kilo o taco es una muestra viva de tradición. Pura carne jugosa, cueritos suaves y el sabor inconfundible del cazo michoacano que te hará chuparte los dedos.
                     </p>
                 </motion.div>
 
@@ -158,10 +158,10 @@ const styles = {
     },
     grid: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(420px, 1fr))',
-        gap: '6rem',
-        padding: '0 4rem',
-        maxWidth: '1800px',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(calc(25% - 2.25rem), 1fr))',
+        gap: '3rem',
+        padding: '0 2rem',
+        maxWidth: '1400px',
         margin: '0 auto',
     },
     card: {
@@ -172,7 +172,7 @@ const styles = {
     },
     imageContainer: {
         position: 'relative',
-        height: '400px',
+        height: '240px',
         overflow: 'hidden',
     },
     image: {
@@ -198,14 +198,20 @@ const styles = {
         border: '1px solid rgba(232, 208, 159, 0.3)',
     },
     content: {
-        padding: '3.5rem',
+        padding: '2rem',
     },
     name: {
-        fontSize: '2.2rem',
+        fontSize: '1.4rem',
         fontFamily: 'var(--font-display)',
         color: 'var(--accent)',
         marginBottom: '0.8rem',
         fontWeight: 400,
+        lineHeight: '1.2',
+        minHeight: '3.4rem',
+        display: '-webkit-box',
+        WebkitLineClamp: 2,
+        WebkitBoxOrient: 'vertical',
+        overflow: 'hidden',
     },
     divider: {
         width: '40px',
@@ -214,43 +220,49 @@ const styles = {
         marginBottom: '1.2rem',
     },
     description: {
-        fontSize: '1rem',
+        fontSize: '0.9rem',
         color: 'var(--text-muted)',
-        lineHeight: '1.8',
-        marginBottom: '3.5rem',
-        fontWeight: 300,
-        height: '3.6rem',
+        lineHeight: '1.5',
+        marginBottom: '2rem',
+        fontWeight: 400,
+        height: '2.7rem',
         overflow: 'hidden',
+        display: '-webkit-box',
+        WebkitLineClamp: 2,
+        WebkitBoxOrient: 'vertical',
     },
     footer: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: '2.5rem',
-        borderTop: '1px solid rgba(232, 208, 159, 0.1)',
+        paddingTop: '1.2rem',
+        borderTop: '1px solid rgba(232, 208, 159, 0.15)',
     },
     priceContainer: {
         display: 'flex',
-        alignItems: 'baseline',
-        gap: '0.5rem',
+        alignItems: 'flex-start',
+        gap: '0.2rem',
+        marginLeft: '-0.8rem', // Recorre el precio más a la izquierda para separarlo del botón
     },
     priceCurrency: {
-        fontSize: '1rem',
+        fontSize: '0.9rem',
         color: 'var(--primary)',
-        fontWeight: 700,
+        fontWeight: 600,
+        marginTop: '0.1rem',
     },
     priceValue: {
-        fontSize: '2rem',
+        fontSize: '1.4rem',
         color: 'var(--accent)',
-        fontWeight: 400,
-        fontFamily: 'var(--font-serif)',
+        fontWeight: 600,
+        fontFamily: 'var(--font-display)',
+        letterSpacing: '0.02em',
     },
     addBtn: {
         background: 'none',
         border: '1px solid var(--accent)',
         color: 'var(--accent)',
-        padding: '1.2rem 2.8rem',
-        fontSize: '0.75rem',
+        padding: '0.8rem 1.6rem',
+        fontSize: '0.7rem',
         fontWeight: 800,
         letterSpacing: '0.2em',
         cursor: 'pointer',

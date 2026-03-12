@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Carnitas La Patrona - Sabor Tradicional</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff3366", // Neon Pink
+                        "accent": "#d4b475",  // Gold
+                        "background-light": "#2d1b4d", // Deep Purple base
+                        "background-dark": "#1a0b2e",  // Darker Purple
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .glitter-bg {
+            background-color: #1a0b2e;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(128, 0, 128, 0.1) 0%, transparent 100%),
+                radial-gradient(1px 1px at 10px 10px, rgba(255, 255, 255, 0.2) 50%, transparent 0),
+                radial-gradient(1px 1px at 20px 50px, rgba(255, 255, 255, 0.15) 50%, transparent 0),
+                radial-gradient(1.5px 1.5px at 30px 90px, rgba(255, 51, 102, 0.2) 50%, transparent 0),
+                radial-gradient(1px 1px at 40px 10px, rgba(212, 180, 117, 0.1) 50%, transparent 0),
+                radial-gradient(1px 1px at 50px 70px, rgba(255, 255, 255, 0.1) 50%, transparent 0),
+                radial-gradient(1.5px 1.5px at 60px 20px, rgba(255, 51, 102, 0.15) 50%, transparent 0),
+                radial-gradient(1px 1px at 70px 40px, rgba(255, 255, 255, 0.2) 50%, transparent 0),
+                radial-gradient(1px 1px at 80px 80px, rgba(212, 180, 117, 0.15) 50%, transparent 0),
+                radial-gradient(1.5px 1.5px at 90px 30px, rgba(255, 255, 255, 0.1) 50%, transparent 0);
+            background-size: 100% 100%, 120px 120px, 150px 150px, 130px 130px, 110px 110px, 140px 140px, 160px 160px, 125px 125px, 145px 145px, 135px 135px;
+            background-attachment: fixed;
+        }
+        .neon-shadow {
+            box-shadow: 0 0 15px rgba(255, 51, 102, 0.4);
+        }
+        .glass-card {
+            background: rgba(45, 27, 77, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 180, 117, 0.15);
+        }
+        header.backdrop-blur-md {
+            background: rgba(26, 11, 46, 0.85);
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-100 glitter-bg">
+<!-- 1. Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-accent/20 backdrop-blur-md px-6 md:px-20 py-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="La Patrona Logo" class="h-12 w-auto" data-alt="Official La Patrona restaurant logo emblem" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUECzxlUd-SBLDBiawFs213tDnY1f_Q6SCNw8JpkelWwOzxzXgqAIFE-q5jcTWRepjoAAleEB3ZXYHU1mwixGaxiVfkUByMLeEjOtNCqyKaByQZndST7D-OVar_G4wIWDnCs0BURvC0G2S9IAyhvZE6T-if1-YayH1wG6jrcJrpDzpz38c_oovvODoGMkMYKbEU4lFi8-aiCsJ_XjFpq7Od6BF2feIRs1uFtCCJP_mVoR_bw9qvk2TEl_nRNNbqOgOVr5PwZxhvBk"/>
+<h2 class="text-xl font-black tracking-tighter text-white uppercase italic">La Patrona</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-xs font-bold tracking-widest text-slate-300 hover:text-primary transition-colors" href="#">INICIO</a>
+<a class="text-xs font-bold tracking-widest text-slate-300 hover:text-primary transition-colors" href="#nosotros">QUIÉNES SOMOS</a>
+<a class="text-xs font-bold tracking-widest text-slate-300 hover:text-primary transition-colors" href="#menu">MENÚ</a>
+<a class="text-xs font-bold tracking-widest text-slate-300 hover:text-primary transition-colors" href="#sucursales">SUCURSALES</a>
+</nav>
+<button class="bg-primary hover:scale-105 transition-transform text-white text-xs font-black px-6 py-2.5 rounded-full neon-shadow tracking-widest">
+        ORDENAR AHORA
+    </button>
+</header>
+<!-- 2. Hero Section -->
+<section class="relative w-full max-w-7xl mx-auto px-6 py-12 md:py-24 grid md:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col gap-8 order-2 md:order-1">
+<div class="space-y-4">
+<span class="text-accent font-bold tracking-[0.3em] text-sm uppercase">Sabor de Tradición</span>
+<h1 class="text-5xl md:text-7xl font-black leading-tight text-white italic">
+                Las Mejores <span class="text-primary">Carnitas</span> de la Ciudad
+            </h1>
+<p class="text-lg text-slate-300 max-w-lg leading-relaxed">
+                Sabor tradicional con un toque gourmet. Disfruta de nuestra receta secreta en un ambiente único y vibrante.
+            </p>
+</div>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-white font-bold px-8 py-4 rounded-xl neon-shadow hover:brightness-110 transition-all uppercase tracking-wider text-sm">
+                Ver Menú
+            </button>
+<button class="border-2 border-accent text-accent font-bold px-8 py-4 rounded-xl hover:bg-accent hover:text-background-dark transition-all uppercase tracking-wider text-sm">
+                Hacer Pedido
+            </button>
+</div>
+</div>
+<div class="order-1 md:order-2">
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+<div class="relative bg-background-dark/40 rounded-2xl overflow-hidden aspect-video md:aspect-square">
+<img alt="Carnitas Dish" class="w-full h-full object-cover" data-alt="Delicious close up of golden traditional carnitas platter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-3Kl4vVa-Zo6zAFZmua5zdWhIgDNCrjUCXRvJcCfevaWcV7tZhSJFi245lJvPnwNTyW-bZfSFnEFNKv1nkjZn6kCHDfswC4lpHbMmD8ybL_t4ClZZZyHBZrVNz4PAR7P0ykRyJ_RvN3crS3ei0tqjMmIV7LL1teVAH-7MlOrGnHil-hZ-SuVBbldA08NLS6Au7UjJhxJZORCSfePU5_hmqppC10IANUfKHZ3YVPvzcpJSWKtWLf-VDzQ4G2ih71qQzkOolRFBilA"/>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. QUIÉNES SOMOS Section -->
+<section class="bg-background-dark/40 py-20 border-y border-accent/10" id="nosotros">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid md:grid-cols-2 gap-16 items-center">
+<div class="space-y-6">
+<h2 class="text-4xl font-black text-white italic uppercase tracking-tighter">QUIÉNES SOMOS</h2>
+<p class="text-slate-400 text-lg leading-relaxed">
+                    En La Patrona, honramos la tradición michoacana con los mejores ingredientes y un proceso artesanal que garantiza el sabor auténtico en cada bocado. Nuestra pasión es llevar el corazón de México a tu mesa con un estilo moderno y elegante.
+                </p>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8">
+<div class="glass-card p-6 rounded-xl space-y-3">
+<span class="material-symbols-outlined text-primary text-3xl">star</span>
+<h3 class="font-bold text-white text-sm">Calidad Premium</h3>
+<p class="text-xs text-slate-400">Seleccionamos la mejor carne.</p>
+</div>
+<div class="glass-card p-6 rounded-xl space-y-3">
+<span class="material-symbols-outlined text-primary text-3xl">local_fire_department</span>
+<h3 class="font-bold text-white text-sm">Receta Tradicional</h3>
+<p class="text-xs text-slate-400">Cocción lenta en cazo.</p>
+</div>
+<div class="glass-card p-6 rounded-xl space-y-3">
+<span class="material-symbols-outlined text-primary text-3xl">groups</span>
+<h3 class="font-bold text-white text-sm">Ambiente Familiar</h3>
+<p class="text-xs text-slate-400">Un lugar para compartir.</p>
+</div>
+</div>
+</div>
+<div class="rounded-2xl overflow-hidden border border-accent/20">
+<img alt="Restaurant Interior" class="w-full h-[400px] object-cover" data-alt="Modern restaurant interior with ambient neon lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmNxQu26YD0dX1rJ05cv8WLXPRq8iHERih8FGkLMcA3KBQOGOJXK6vpjcIt3KVSxzfhpzmbdn3k5YklNK2tOrWYtkrMJ8NGpLs7P53nlS9zRhS8C1cqnm04Pru9jH8iJ3hXfMRUfYBlBgnv9m3hyA0eJgujQEhCCzSfvn0C3Sb88izYXGwQ1Xis4Wft8lAb0Ai9PWgEq28s_Mt06o4synh19vFLN_ivf3iXD2oDzcvPFbn9lct4QlLRM3SvodWvqkzeNHA2_ANr0Q"/>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Selección Gourmet Section -->
+<section class="py-24 max-w-7xl mx-auto px-6" id="menu">
+<div class="flex flex-col items-center mb-16 text-center">
+<h2 class="text-4xl font-black text-white italic uppercase mb-4">Selección Gourmet</h2>
+<div class="w-24 h-1 bg-primary rounded-full mb-8"></div>
+<div class="flex flex-wrap justify-center gap-4 border-b border-accent/20 w-full max-w-2xl">
+<button class="pb-4 px-6 text-primary border-b-2 border-primary font-bold text-sm tracking-widest uppercase">Tacos</button>
+<button class="pb-4 px-6 text-slate-400 border-b-2 border-transparent hover:text-accent font-bold text-sm tracking-widest uppercase transition-colors">Por Kilo</button>
+<button class="pb-4 px-6 text-slate-400 border-b-2 border-transparent hover:text-accent font-bold text-sm tracking-widest uppercase transition-colors">Paquetes</button>
+<button class="pb-4 px-6 text-slate-400 border-b-2 border-transparent hover:text-accent font-bold text-sm tracking-widest uppercase transition-colors">Bebidas</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Product Cards -->
+<div class="glass-card rounded-2xl overflow-hidden group hover:scale-[1.02] transition-transform">
+<div class="h-56 overflow-hidden relative">
+<img alt="Taco de Maciza" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Succulent maciza taco with fresh cilantro and onion" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMLvDN9tMi429smpzrLAVb-gZjMcdu6bJFTnUFiyigIM4xche9nomtc2wLYHOX34C3V8AKtRh1Kae7uW6jH-l7-waKV8ygOi6lfXYrX3UcBcGMjfxD-TgKO6wn5U5cYZShgU2CDt0-GqhI2MNBhuv8YlpjUPc5MXy5rc24Iszsuc1x0_5piTuDSfsBIZ9RN8yMHMz5q5AS84ZDil_OXueLFsufMhFxUkjUbLIy4mBd5UMWcqK8XKxvhAzJCmTq0h3OJwtaJC06Vgk"/>
+<div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">$35</div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold text-white mb-2 italic">Taco de Maciza</h3>
+<p class="text-slate-400 text-sm mb-4 leading-relaxed">Carne magra y tierna, cocinada a fuego lento. El clásico irresistible.</p>
+<button class="w-full py-2 bg-primary/20 hover:bg-primary/40 border border-primary/50 text-primary font-bold text-xs rounded-lg uppercase tracking-widest transition-colors">Añadir al Carrito</button>
+</div>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden group hover:scale-[1.02] transition-transform">
+<div class="h-56 overflow-hidden relative">
+<img alt="Taco de Costilla" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Tender rib meat taco with crispy bits" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAoD0UeYkXabHyPUmkTC0ZuJy3Hz9DY7gn0em_9iBHCp13SjJg1r4RPQLzHwmui4D8Pf-gPxPbfrZ-OLJL2__9ffQHDd7k8jobFD4plzHqtN0-K0hAtkKoZ6Ej427Vgs2O3sc7xYoUz85EIXCFdt5fEjbQA1ybCfiLnf2iMNkUpdbY07tq2pamZWu8cmz2oxnamewfilEQs-UOk3Qj4rmUyQM4FbtszHmEM42QmccuM6u1aQ0mDlEctoZcABgVpYuRRMhXeicFSq4"/>
+<div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">$38</div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold text-white mb-2 italic">Taco de Costilla</h3>
+<p class="text-slate-400 text-sm mb-4 leading-relaxed">Huesito tierno y jugoso que se deshace en la boca. Sabor intenso.</p>
+<button class="w-full py-2 bg-primary/20 hover:bg-primary/40 border border-primary/50 text-primary font-bold text-xs rounded-lg uppercase tracking-widest transition-colors">Añadir al Carrito</button>
+</div>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden group hover:scale-[1.02] transition-transform">
+<div class="h-56 overflow-hidden relative">
+<img alt="Taco Surtido" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Mix of different pork cuts in a double tortilla taco" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA2QzI0-J3SEhmRSLnPYn6sR8aj1IU1mlAE0zFHViGtMv-I1a7t8rk_KXNLpIv6IVcC5qiK_NBigUjqc146UBud1GYm0FGjdcjnTq2dH76NAEBlN-lFlTs7Na5Xj3VaB1fCYcCs8XB6_WiMm5fowiLt9a-pO4ggLpF790ywvbua3C7Gcc5fgzM7O6W6EeAzqhUlS4FI040J2AyCl13FNHNOB4R1QV0SD3ixrCpMD3xOsGtaUtiQ8CVioAKSjUZuUYVkqNv3HcrsIc"/>
+<div class="absolute top-4 right-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">$35</div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold text-white mb-2 italic">Taco Surtido</h3>
+<p class="text-slate-400 text-sm mb-4 leading-relaxed">Lo mejor de todo en un solo taco. Maciza, cuerito y gordito.</p>
+<button class="w-full py-2 bg-primary/20 hover:bg-primary/40 border border-primary/50 text-primary font-bold text-xs rounded-lg uppercase tracking-widest transition-colors">Añadir al Carrito</button>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. Review Section -->
+<section class="bg-background-dark/30 py-24">
+<div class="max-w-7xl mx-auto px-6">
+<h2 class="text-3xl font-black text-white italic text-center uppercase mb-12">Lo que dicen nuestros Patrones</h2>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="glass-card p-8 rounded-2xl border-l-4 border-l-primary">
+<div class="flex text-accent mb-4">
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+</div>
+<p class="text-slate-300 italic mb-6">"Las mejores carnitas que he probado en años. El servicio es excelente y el lugar tiene una vibra increíble."</p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">R</div>
+<span class="font-bold text-white">Ricardo Sánchez</span>
+</div>
+</div>
+<div class="glass-card p-8 rounded-2xl border-l-4 border-l-primary">
+<div class="flex text-accent mb-4">
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+</div>
+<p class="text-slate-300 italic mb-6">"La presentación de los platillos es de otro nivel. Un concepto muy original para un clásico mexicano."</p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">M</div>
+<span class="font-bold text-white">Mariana López</span>
+</div>
+</div>
+<div class="glass-card p-8 rounded-2xl border-l-4 border-l-primary">
+<div class="flex text-accent mb-4">
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+</div>
+<p class="text-slate-300 italic mb-6">"El sabor es auténtico michoacano. Los paquetes familiares son la mejor opción para el fin de semana."</p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">J</div>
+<span class="font-bold text-white">Juan Pérez</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. NUESTRAS SUCURSALES Section -->
+<section class="py-24 max-w-7xl mx-auto px-6" id="sucursales">
+<h2 class="text-4xl font-black text-white italic uppercase text-center mb-16">NUESTRAS SUCURSALES</h2>
+<div class="grid lg:grid-cols-2 gap-12 glass-card p-8 rounded-3xl overflow-hidden">
+<div class="space-y-8">
+<div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary transition-colors cursor-pointer">
+<h3 class="text-2xl font-bold text-primary italic mb-2">Sucursal Polanco</h3>
+<div class="flex items-start gap-3 text-slate-300 mb-4">
+<span class="material-symbols-outlined text-accent">location_on</span>
+<p>Av. Presidente Masaryk 123, Polanco, CDMX</p>
+</div>
+<div class="flex items-start gap-3 text-slate-300">
+<span class="material-symbols-outlined text-accent">schedule</span>
+<p>Lun - Dom: 9:00 AM - 6:00 PM</p>
+</div>
+</div>
+<div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary transition-colors cursor-pointer">
+<h3 class="text-2xl font-bold text-primary italic mb-2">Sucursal Roma</h3>
+<div class="flex items-start gap-3 text-slate-300 mb-4">
+<span class="material-symbols-outlined text-accent">location_on</span>
+<p>Calle Colima 45, Roma Norte, CDMX</p>
+</div>
+<div class="flex items-start gap-3 text-slate-300">
+<span class="material-symbols-outlined text-accent">schedule</span>
+<p>Mar - Dom: 10:00 AM - 7:00 PM</p>
+</div>
+</div>
+</div>
+<div class="h-[450px] rounded-2xl overflow-hidden border border-accent/20">
+<img alt="City Map Location" class="w-full h-full object-cover grayscale invert contrast-125" data-alt="Stylized dark map showing restaurant locations in Mexico City" data-location="Mexico City" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-psXiN6GZ1wSw5nk8vcJp1c4AyANGOBo-UBmP44W2eV6-IAsqn9MVTBcMPV-GO3SRyxtqJ8lohuMYZzimGakyvp2PyMvf5ujgDI9DJ5PDerAuWNzG6GF1FLW5Z_-qo8z3sJ6w5MxzrgtUCKc5MaAOfOwFHtjOZGPEl-Il487IxOUgXp0ap_e8YgmfZbIQD_iOxQh8BCHITM_YFKUXc5QdDi_D2Ma5lkcnNJlvpF9X5vFsheqjBokL0ryjpryIo23omzTSGdjR_7k"/>
+</div>
+</div>
+</section>
+<!-- 7. Footer -->
+<footer class="bg-background-dark/60 py-16 border-t border-accent/20">
+<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12 items-start">
+<div class="flex flex-col gap-6">
+<img alt="La Patrona Logo" class="h-16 w-auto self-start" data-alt="Official logo on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdEQqlOHLY_zIlRF5glV4xyKEQIWmDuywLDyGCChLYKDrf4RfciyvLObkoSeNI6SQbJlgMIMdmtnlU-YPg3i1CiMlAAlmKzlWXineBtIoh1F4jnTB_DRCD6x_hzgaQtJkJCX6wcFraAxKvp8_aKOJOYN7XxaE06a3zQpu0zd-yf-YNTwOILuVZAqm0DJMYu8a6wx4kNl5o5-U1vHT1wSudCsmIJNHMTP11BSnf2SW01hkJuigDmTleMEhLb-bihfihIltXu2XlXjg"/>
+<p class="text-slate-400 text-sm max-w-xs">
+                Llevando el sabor tradicional de las carnitas michoacanas al siguiente nivel con calidad y estilo.
+            </p>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="text-white font-bold uppercase tracking-widest text-sm">Navegación</h4>
+<a class="text-slate-400 hover:text-primary text-sm transition-colors" href="#">Inicio</a>
+<a class="text-slate-400 hover:text-primary text-sm transition-colors" href="#nosotros">Nosotros</a>
+<a class="text-slate-400 hover:text-primary text-sm transition-colors" href="#menu">Menú</a>
+<a class="text-slate-400 hover:text-primary text-sm transition-colors" href="#sucursales">Sucursales</a>
+</div>
+<div class="flex flex-col gap-6">
+<h4 class="text-white font-bold uppercase tracking-widest text-sm">Síguenos</h4>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full border border-accent/30 flex items-center justify-center text-accent hover:bg-primary hover:border-primary hover:text-white transition-all" href="#">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
+</a>
+<a class="w-10 h-10 rounded-full border border-accent/30 flex items-center justify-center text-accent hover:bg-primary hover:border-primary hover:text-white transition-all" href="#">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-white/5 text-center">
+<p class="text-slate-500 text-xs">© 2024 Carnitas La Patrona. Todos los derechos reservados. Diseñado con pasión.</p>
+</div>
+</footer>
+</body></html>
